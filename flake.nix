@@ -22,9 +22,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell";
     };
+
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, mango, quickshell, noctalia, ... }@inputs:
+  outputs = { self, nixpkgs, mango, quickshell, noctalia, nix-gaming, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
     lib = nixpkgs.lib;
@@ -34,11 +44,17 @@
     mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
       mango.nixosModules.mango;
 
-    # IMPORTANT: Replace <hostname> with actual hostname
     commonModules = [
-      ./hosts/<hostname>/hardware-configuration.nix
+      ./hosts/atlas/hardware-configuration.nix
       ./modules/common.nix
       mangoModule
+      # Home Manager module - Foundation for user-level package management
+      # User-specific configurations can be added via home-manager.users.<username>
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+      }
     ];
   in {
     nixosConfigurations = {

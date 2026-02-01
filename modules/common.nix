@@ -10,12 +10,31 @@
   # --------------------------------------------------------------------------
   # SYSTEM
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace with actual values
-  networking.hostName = "<hostname>";
-  time.timeZone = "<timezone>";
-  i18n.defaultLocale = "<locale>";
+  networking.hostName = "atlas";
+  time.timeZone = "Europe/Berlin";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  # German keyboard layout (nodeadkeys variant)
+  console.keyMap = "de-latin1-nodeadkeys";
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "nodeadkeys";
+  };
 
   networking.networkmanager.enable = true;
+
+  # Memory compression (reduces swap usage)
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
+  # Firmware updates
+  services.fwupd.enable = true;
+
+  # Power profiles daemon (for laptop/power management)
+  services.power-profiles-daemon.enable = true;
 
   # --------------------------------------------------------------------------
   # AMD GPU - RDNA 4 (RX 9060 XT) + Zen 3 CPU (5700G)
@@ -41,6 +60,13 @@
   # RADV is already the default Vulkan driver
   # This variable is optional but makes it explicit
   environment.variables.AMD_VULKAN_ICD = "RADV";
+
+  # Wayland session variables for proper app integration
+  environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = "1";  # Electron apps (VS Code, Discord, etc.)
+  };
 
   # --------------------------------------------------------------------------
   # CPU - Zen 3 Optimizations (Ryzen 7 5700G)
@@ -75,16 +101,14 @@
     enable = true;
     settings.default_session = {
       command = "mango";
-      # IMPORTANT: Replace <username> with actual username
-      user = "<username>";
+      user = "pinj";
     };
   };
 
   # --------------------------------------------------------------------------
   # USER ACCOUNT
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username> = {
+  users.users.pinj = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
     # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
@@ -151,6 +175,13 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    
+    # Low-latency configuration for gaming
+    lowLatency = {
+      enable = true;
+      quantum = 64;      # Buffer size (lower = less latency)
+      rate = 48000;      # Sample rate
+    };
   };
 
   # Disable PulseAudio (conflicts with PipeWire)

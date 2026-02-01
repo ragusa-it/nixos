@@ -1,8 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # Identification tags (shows in boot menu)
   system.nixos.tags = [ "gaming" "zen" ];
+
+  # --------------------------------------------------------------------------
+  # NIX-GAMING PLATFORM OPTIMIZATIONS
+  # --------------------------------------------------------------------------
+  imports = [
+    inputs.nix-gaming.nixosModules.platformOptimisations
+  ];
+  
+  nix-gaming.platformOptimisations.enable = true;
 
   # --------------------------------------------------------------------------
   # KERNEL - Zen for gaming performance
@@ -53,17 +62,16 @@
   # programs to function correctly. These groups are only added when using
   # the gaming profile. If you need consistent group membership across
   # both profiles, add these groups to common.nix instead.
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username>.extraGroups = [ "corectrl" "gamemode" ];
+  users.users.pinj.extraGroups = [ "corectrl" "gamemode" ];
 
   # --------------------------------------------------------------------------
   # GAMING PACKAGES
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username>.packages = with pkgs; [
+  users.users.pinj.packages = with pkgs; [
     # -- Performance Overlays --
     mangohud        # FPS counter, GPU stats
     goverlay        # MangoHud GUI config
+    vkbasalt        # Vulkan post-processing (sharpening, CAS)
 
     # -- Game Launchers --
     lutris          # Multi-platform launcher
@@ -78,6 +86,10 @@
     # -- Utilities --
     gamescope       # Micro-compositor for gaming
     corectrl        # AMD GPU control GUI
+    lact            # Linux AMDGPU Control Tool (alternative to CoreCtrl)
+    
+    # -- Communication --
+    discord         # Voice chat and gaming communities
 
     # -- Optional Game Clients --
     # prismlauncher # Minecraft
