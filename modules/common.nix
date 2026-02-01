@@ -70,6 +70,7 @@
   services.seatd.enable = true;
 
   # Use greetd to automatically start a MangoWC session on login
+  # Note: 'mango' binary is provided by programs.mango.enable above
   services.greetd = {
     enable = true;
     settings.default_session = {
