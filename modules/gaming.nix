@@ -86,7 +86,7 @@
     # -- Utilities --
     gamescope       # Micro-compositor for gaming
     corectrl        # AMD GPU control GUI
-    lact            # LACT - AMD GPU control (alternative to CoreCtrl)
+    lact            # Linux AMDGPU Control Tool (alternative to CoreCtrl)
     
     # -- Communication --
     discord         # Voice chat and gaming communities

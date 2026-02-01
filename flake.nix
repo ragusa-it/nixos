@@ -48,6 +48,8 @@
       ./hosts/atlas/hardware-configuration.nix
       ./modules/common.nix
       mangoModule
+      # Home Manager module - Foundation for user-level package management
+      # User-specific configurations can be added via home-manager.users.<username>
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
