@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, ... }:
+{ config, pkgs, inputs, system, hostname, username, ... }:
 
 {
   # --------------------------------------------------------------------------
@@ -10,7 +10,7 @@
   # --------------------------------------------------------------------------
   # SYSTEM
   # --------------------------------------------------------------------------
-  networking.hostName = "atlas";
+  networking.hostName = hostname;
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -57,12 +57,11 @@
     # RADV (Mesa) is the default and performs better for gaming
   };
 
-  # RADV is already the default Vulkan driver
-  # This variable is optional but makes it explicit
-  environment.variables.AMD_VULKAN_ICD = "RADV";
-
   # Wayland session variables for proper app integration
   environment.sessionVariables = {
+    # RADV is already the default Vulkan driver
+    # This variable is optional but makes it explicit
+    AMD_VULKAN_ICD = "RADV";
     QT_QPA_PLATFORM = "wayland";
     MOZ_ENABLE_WAYLAND = "1";
     NIXOS_OZONE_WL = "1";  # Electron apps (VS Code, Discord, etc.)
@@ -101,19 +100,19 @@
     enable = true;
     settings.default_session = {
       command = "mango";
-      user = "pinj";
+      user = username;
     };
   };
 
   # --------------------------------------------------------------------------
   # USER ACCOUNT
   # --------------------------------------------------------------------------
-  users.users.pinj = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
     # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
-    # Then replace the placeholder below with the generated hash
-    hashedPassword = "<replace-with-password-hash>";
+    # Save it to the path below (ensure permissions are 600)
+    hashedPasswordFile = "/etc/nixos/secrets/${username}/password.hash";
     packages = with pkgs; [
       # -- Noctalia Shell --
       inputs.quickshell.packages.${system}.default

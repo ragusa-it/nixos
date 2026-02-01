@@ -37,15 +37,18 @@
   outputs = { self, nixpkgs, mango, quickshell, noctalia, nix-gaming, home-manager, ... }@inputs:
   let
     system = "x86_64-linux";
+    hostname = "atlas";
+    username = "pinj";
     lib = nixpkgs.lib;
-    specialArgs = { inherit inputs system; };
+    hostConfig = ./hosts + "/${hostname}/hardware-configuration.nix";
+    specialArgs = { inherit inputs system hostname username; };
 
     # Verify mango flake exports the expected module
     mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
       mango.nixosModules.mango;
 
     commonModules = [
-      ./hosts/atlas/hardware-configuration.nix
+      hostConfig
       ./modules/common.nix
       mangoModule
       # Home Manager module - Foundation for user-level package management

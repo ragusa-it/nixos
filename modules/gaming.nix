@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, username, ... }:
 
 {
   # Identification tags (shows in boot menu)
@@ -62,12 +62,12 @@
   # programs to function correctly. These groups are only added when using
   # the gaming profile. If you need consistent group membership across
   # both profiles, add these groups to common.nix instead.
-  users.users.pinj.extraGroups = [ "corectrl" "gamemode" ];
+  users.users.${username}.extraGroups = [ "corectrl" "gamemode" ];
 
   # --------------------------------------------------------------------------
   # GAMING PACKAGES
   # --------------------------------------------------------------------------
-  users.users.pinj.packages = with pkgs; [
+  users.users.${username}.packages = with pkgs; [
     # -- Performance Overlays --
     mangohud        # FPS counter, GPU stats
     goverlay        # MangoHud GUI config

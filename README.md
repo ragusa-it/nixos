@@ -52,18 +52,18 @@ mkdir -p hosts/<hostname>
 cp /etc/nixos/hardware-configuration.nix hosts/<hostname>/
 ```
 
-### 2. Replace Placeholders
+### 2. Review Configuration Defaults
 
-Edit the following files and replace these placeholders:
+Defaults are set in `flake.nix` and used across modules. Update them there:
 
-| Placeholder | Example Value | Files |
-|-------------|---------------|-------|
-| `<hostname>` | `desktop` | `flake.nix`, `modules/common.nix` |
-| `<username>` | `john` | `modules/common.nix`, `modules/dev.nix`, `modules/gaming.nix` |
-| `<timezone>` | `America/New_York` | `modules/common.nix` |
-| `<locale>` | `en_US.UTF-8` | `modules/common.nix` |
+| Setting | Example Value | File |
+|---------|---------------|------|
+| `hostname` | `desktop` | `flake.nix` |
+| `username` | `john` | `flake.nix` |
+| `time.timeZone` | `America/New_York` | `modules/common.nix` |
+| `i18n.defaultLocale` | `en_US.UTF-8` | `modules/common.nix` |
 
-Also rename the `hosts/hostname/` directory to match your actual hostname, and ensure the same hostname is used for all `<hostname>` placeholders (including in `flake.nix`).
+Also rename the `hosts/<hostname>/` directory to match your actual hostname, and ensure the same hostname is set in `flake.nix`.
 
 ### 3. Stage Files in Git
 
@@ -136,10 +136,10 @@ sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 
 ### Change Password
 
-Generate a password hash and update `modules/common.nix`:
+Generate a password hash and save it to `/etc/nixos/secrets/<username>/password.hash`:
 ```bash
 mkpasswd -m sha-512
-# Copy the output and replace <replace-with-password-hash> in common.nix
+# Save the output to /etc/nixos/secrets/<username>/password.hash with 600 permissions
 ```
 
 ### Setup MangoWC

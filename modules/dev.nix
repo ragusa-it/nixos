@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 
 {
   # Identification tag (shows in boot menu and `nixos-version`)
@@ -24,7 +24,7 @@
 
   # NOTE: After first enabling/applying this dev profile, you must log out and
   # log back in (or reboot) for the docker group membership to take effect.
-  users.users.pinj.extraGroups = [ "docker" ];
+  users.users.${username}.extraGroups = [ "docker" ];
 
   # --------------------------------------------------------------------------
   # DEVELOPMENT TOOLS
@@ -34,7 +34,7 @@
     nix-direnv.enable = true;  # Caches nix shells
   };
 
-  users.users.pinj.packages = with pkgs; [
+  users.users.${username}.packages = with pkgs; [
     # -- Git --
     lazygit
     gh              # GitHub CLI
