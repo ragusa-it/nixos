@@ -43,7 +43,7 @@
     usernameValid =
       builtins.match "^[a-z_][a-z0-9_]*$" username != null
       && builtins.match "^_+$" username == null
-      && builtins.match "^nix" username == null
+      && builtins.match "^nix.*" username == null
       && username != "root";
     hostConfig = (./hosts + "/${hostname}") + "/hardware-configuration.nix";
     passwordHashPath = "/etc/nixos/secrets/${username}/password.hash";
