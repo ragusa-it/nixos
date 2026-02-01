@@ -23,6 +23,8 @@
   };
 
   # IMPORTANT: Replace <username> with actual username
+  # NOTE: After first enabling/applying this dev profile, you must log out and
+  # log back in (or reboot) for the docker group membership to take effect.
   users.users.<username>.extraGroups = [ "docker" ];
 
   # --------------------------------------------------------------------------

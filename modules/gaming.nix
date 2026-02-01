@@ -27,7 +27,7 @@
     enableRenice = true;
     settings = {
       general = {
-        renice = 10;
+        renice = -10;  # Negative value = higher priority for games
       };
       gpu = {
         apply_gpu_optimisations = "accept-responsibility";
@@ -48,6 +48,11 @@
     };
   };
 
+  # NOTE: Profile-specific group membership
+  # The user must be in the "corectrl" and "gamemode" groups for these
+  # programs to function correctly. These groups are only added when using
+  # the gaming profile. If you need consistent group membership across
+  # both profiles, add these groups to common.nix instead.
   # IMPORTANT: Replace <username> with actual username
   users.users.<username>.extraGroups = [ "corectrl" "gamemode" ];
 
@@ -91,11 +96,4 @@
     # may crash without this setting due to high mmap requirements.
     "vm.max_map_count" = 2147483642;
   };
-
-  # Additional kernel params for gaming (appends to common.nix params)
-  boot.kernelParams = [
-    "amd_pstate=active"       # Inherited from common, but explicit for clarity
-    "mitigations=off"         # Optional: Disable CPU mitigations for ~5% perf gain
-                              # Remove this line if security is a concern
-  ];
 }

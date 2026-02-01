@@ -21,8 +21,8 @@
   # AMD GPU - RDNA 4 (RX 9060 XT) + Zen 3 CPU (5700G)
   # --------------------------------------------------------------------------
   
-  # CRITICAL: RDNA 4 requires navi44 firmware blobs
-  hardware.enableAllFirmware = true;
+  # RDNA 4 requires navi44 firmware blobs (included in redistributable firmware)
+  hardware.enableRedistributableFirmware = true;
   
   # Use the modern amdgpu NixOS module (cleaner than manual initrd config)
   hardware.amdgpu.initrd.enable = true;
@@ -69,6 +69,16 @@
   # Enable seatd for session management
   services.seatd.enable = true;
 
+  # Use greetd to automatically start a MangoWC session on login
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "mango";
+      # IMPORTANT: Replace <username> with actual username
+      user = "<username>";
+    };
+  };
+
   # --------------------------------------------------------------------------
   # USER ACCOUNT
   # --------------------------------------------------------------------------
@@ -76,8 +86,9 @@
   users.users.<username> = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
-    # Set initial password or use hashedPassword
-    initialPassword = "changeme";
+    # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
+    # Then replace the placeholder below with the generated hash
+    hashedPassword = "<replace-with-password-hash>";
     packages = with pkgs; [
       # -- Noctalia Shell --
       inputs.quickshell.packages.${system}.default
@@ -121,9 +132,9 @@
   # FONTS
   # --------------------------------------------------------------------------
   fonts.packages = with pkgs; [
-    # Nerd fonts - syntax changed in nixpkgs after 24.05
-    # If using older nixpkgs: (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    # Current nixpkgs-unstable uses individual packages:
+    # Nerd fonts: current syntax for nixos-unstable and NixOS >= 24.05
+    # For older nixpkgs (before this change), use:
+    #   (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     nerd-fonts.jetbrains-mono
     
     # Other fonts
@@ -166,5 +177,5 @@
   # IMPORTANT: Set to the NixOS version of your install media
   # Check with: nixos-version
   # Do NOT change this after initial install
-  system.stateVersion = "25.05";
+  system.stateVersion = "24.11";
 }

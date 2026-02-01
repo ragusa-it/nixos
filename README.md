@@ -45,6 +45,9 @@ nixos-config/
 git clone <this-repo> ~/nixos-config
 cd ~/nixos-config
 
+# Create the host directory (replace <hostname> with your actual hostname)
+mkdir -p hosts/<hostname>
+
 # Replace the placeholder hardware-configuration.nix with your actual one
 cp /etc/nixos/hardware-configuration.nix hosts/<hostname>/
 ```
@@ -60,9 +63,11 @@ Edit the following files and replace these placeholders:
 | `<timezone>` | `America/New_York` | `modules/common.nix` |
 | `<locale>` | `en_US.UTF-8` | `modules/common.nix` |
 
-Also rename `hosts/hostname/` to match your actual hostname.
+Also rename the `hosts/hostname/` directory to match your actual hostname, and ensure the same hostname is used for all `<hostname>` placeholders (including in `flake.nix`).
 
 ### 3. Stage Files in Git
+
+**IMPORTANT:** Flakes require all files to be tracked by git before building.
 
 ```bash
 cd ~/nixos-config
@@ -78,11 +83,16 @@ nix flake show
 
 ### 5. Build and Switch
 
+**IMPORTANT:** Ensure all files are staged in git (step 3) before building.
+
 ```bash
 # Build and switch to dev config as main system profile
 sudo nixos-rebuild switch --flake .#dev
 
-# Build gaming config as separate boot profile
+# (Optional) Test gaming config without committing it as a boot option
+sudo nixos-rebuild test --flake .#gaming
+
+# Build gaming config as separate boot profile (available after next reboot)
 sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 ```
 
@@ -94,20 +104,22 @@ Boot menu should show:
 
 ## Updating
 
-**IMPORTANT:** Always update both profiles together to avoid kernel/Mesa version drift:
+**IMPORTANT:** Always update both profiles together to avoid kernel/Mesa version drift.
+
+### After Configuration Changes
 
 ```bash
 cd ~/nixos-config
-git add .
+git add .  # Stage your configuration changes
 sudo nixos-rebuild switch --flake .#dev
 sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 ```
 
-To update flake inputs:
+### Updating Flake Inputs Only
 
 ```bash
 nix flake update
-git add flake.lock
+git add flake.lock  # Only stage the lock file, not other changes
 sudo nixos-rebuild switch --flake .#dev
 sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 ```
@@ -124,19 +136,24 @@ sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 
 ### Change Password
 
+Generate a password hash and update `modules/common.nix`:
 ```bash
-passwd
+mkpasswd -m sha-512
+# Copy the output and replace <replace-with-password-hash> in common.nix
 ```
 
 ### Setup MangoWC
+
+MangoWC is configured to auto-start via greetd. To customize it:
 
 ```bash
 mkdir -p ~/.config/mango
 cp /etc/mango/config.conf ~/.config/mango/config.conf
 
-# Create autostart script
+# Create autostart script for Noctalia shell
 cat > ~/.config/mango/autostart.sh << 'EOF'
 #!/bin/bash
+# Ensure quickshell is in PATH (it should be as a user package)
 qs -c noctalia-shell &
 EOF
 chmod +x ~/.config/mango/autostart.sh
@@ -147,9 +164,13 @@ Add to `~/.config/mango/config.conf`:
 exec-once="~/.config/mango/autostart.sh"
 ```
 
-### Auto-start MangoWC from TTY
+### Dev Profile: Docker Access
 
-Add to `~/.bash_profile` or `~/.zprofile`:
+After switching to the dev profile for the first time, you must log out and log back in (or reboot) for Docker group membership to take effect.
+
+### Auto-start MangoWC from TTY (Alternative)
+
+If not using greetd, add to `~/.bash_profile` or `~/.zprofile`:
 ```bash
 if [[ -z $WAYLAND_DISPLAY ]] && [[ $(tty) == /dev/tty1 ]]; then
     exec mango

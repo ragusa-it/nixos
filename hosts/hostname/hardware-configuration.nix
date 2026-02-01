@@ -7,7 +7,8 @@
 # To generate a new hardware configuration, run:
 #   sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
 #
-# This placeholder will NOT work for actual system builds.
+# This placeholder will NOT work for actual system builds - the UUIDs below
+# are placeholders that must be replaced with your actual disk UUIDs.
 
 { config, lib, pkgs, modulesPath, ... }:
 
@@ -22,20 +23,21 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  # Example filesystem configuration (replace with your actual mounts)
-  # fileSystems."/" = {
-  #   device = "/dev/disk/by-uuid/YOUR-ROOT-UUID";
-  #   fsType = "ext4";
-  # };
-  # 
-  # fileSystems."/boot" = {
-  #   device = "/dev/disk/by-uuid/YOUR-BOOT-UUID";
-  #   fsType = "vfat";
-  # };
-  # 
-  # swapDevices = [
-  #   { device = "/dev/disk/by-uuid/YOUR-SWAP-UUID"; }
-  # ];
+  # IMPORTANT: Replace these UUIDs with your actual disk UUIDs
+  # Find your UUIDs with: lsblk -f
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/REPLACE-WITH-YOUR-ROOT-UUID";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/REPLACE-WITH-YOUR-BOOT-UUID";
+    fsType = "vfat";
+  };
+
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/REPLACE-WITH-YOUR-SWAP-UUID"; }
+  ];
 
   # CPU microcode updates for AMD
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

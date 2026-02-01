@@ -1,6 +1,9 @@
 {
   description = "NixOS - Isolated Gaming & Dev configurations";
 
+  # SECURITY NOTE: After first build, commit flake.lock to pin inputs to specific
+  # commits. Update via `nix flake update` only from trusted sources.
+  # This protects against supply-chain attacks from upstream changes.
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -24,13 +27,18 @@
   outputs = { self, nixpkgs, mango, quickshell, noctalia, ... }@inputs:
   let
     system = "x86_64-linux";
+    lib = nixpkgs.lib;
     specialArgs = { inherit inputs system; };
+
+    # Verify mango flake exports the expected module
+    mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
+      mango.nixosModules.mango;
 
     # IMPORTANT: Replace <hostname> with actual hostname
     commonModules = [
       ./hosts/<hostname>/hardware-configuration.nix
       ./modules/common.nix
-      mango.nixosModules.mango
+      mangoModule
     ];
   in {
     nixosConfigurations = {
