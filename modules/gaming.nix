@@ -53,14 +53,12 @@
   # programs to function correctly. These groups are only added when using
   # the gaming profile. If you need consistent group membership across
   # both profiles, add these groups to common.nix instead.
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username>.extraGroups = [ "corectrl" "gamemode" ];
+  users.users.pinj.extraGroups = [ "corectrl" "gamemode" ];
 
   # --------------------------------------------------------------------------
   # GAMING PACKAGES
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username>.packages = with pkgs; [
+  users.users.pinj.packages = with pkgs; [
     # -- Performance Overlays --
     mangohud        # FPS counter, GPU stats
     goverlay        # MangoHud GUI config

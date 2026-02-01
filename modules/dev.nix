@@ -22,10 +22,9 @@
     };
   };
 
-  # IMPORTANT: Replace <username> with actual username
   # NOTE: After first enabling/applying this dev profile, you must log out and
   # log back in (or reboot) for the docker group membership to take effect.
-  users.users.<username>.extraGroups = [ "docker" ];
+  users.users.pinj.extraGroups = [ "docker" ];
 
   # --------------------------------------------------------------------------
   # DEVELOPMENT TOOLS
@@ -35,8 +34,7 @@
     nix-direnv.enable = true;  # Caches nix shells
   };
 
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username>.packages = with pkgs; [
+  users.users.pinj.packages = with pkgs; [
     # -- Git --
     lazygit
     gh              # GitHub CLI

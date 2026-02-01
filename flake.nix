@@ -34,9 +34,8 @@
     mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
       mango.nixosModules.mango;
 
-    # IMPORTANT: Replace <hostname> with actual hostname
     commonModules = [
-      ./hosts/<hostname>/hardware-configuration.nix
+      ./hosts/atlas/hardware-configuration.nix
       ./modules/common.nix
       mangoModule
     ];

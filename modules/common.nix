@@ -10,10 +10,9 @@
   # --------------------------------------------------------------------------
   # SYSTEM
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace with actual values
-  networking.hostName = "<hostname>";
-  time.timeZone = "<timezone>";
-  i18n.defaultLocale = "<locale>";
+  networking.hostName = "atlas";
+  time.timeZone = "Europe/Rome";  # TODO: Change to your timezone
+  i18n.defaultLocale = "en_US.UTF-8";
 
   networking.networkmanager.enable = true;
 
@@ -41,6 +40,13 @@
   # RADV is already the default Vulkan driver
   # This variable is optional but makes it explicit
   environment.variables.AMD_VULKAN_ICD = "RADV";
+
+  # Wayland session variables for proper app integration
+  environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    MOZ_ENABLE_WAYLAND = "1";
+    NIXOS_OZONE_WL = "1";  # Electron apps (VS Code, Discord, etc.)
+  };
 
   # --------------------------------------------------------------------------
   # CPU - Zen 3 Optimizations (Ryzen 7 5700G)
@@ -75,16 +81,14 @@
     enable = true;
     settings.default_session = {
       command = "mango";
-      # IMPORTANT: Replace <username> with actual username
-      user = "<username>";
+      user = "pinj";
     };
   };
 
   # --------------------------------------------------------------------------
   # USER ACCOUNT
   # --------------------------------------------------------------------------
-  # IMPORTANT: Replace <username> with actual username
-  users.users.<username> = {
+  users.users.pinj = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
     # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
