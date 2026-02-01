@@ -63,7 +63,7 @@ Defaults are set in `flake.nix` and used across modules. Update them there:
 | `time.timeZone` | `America/New_York` | `modules/common.nix` |
 | `i18n.defaultLocale` | `en_US.UTF-8` | `modules/common.nix` |
 
-Rename the default `hosts/atlas/` directory to match your hostname (e.g., `hosts/desktop/`). After renaming the directory, update the `hostname` value in `flake.nix` to match. The flake uses it to locate `hosts/<hostname>/hardware-configuration.nix`.
+Update the `hostname` value in `flake.nix` to match your machine. Then rename the default `hosts/atlas/` directory to the same value (e.g., `hosts/desktop/`). The flake uses it to locate `hosts/<hostname>/hardware-configuration.nix`.
 
 ### 3. Stage Files in Git
 
