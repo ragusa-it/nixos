@@ -11,8 +11,15 @@
   # SYSTEM
   # --------------------------------------------------------------------------
   networking.hostName = "atlas";
-  time.timeZone = "Europe/Rome";  # TODO: Change to your timezone
+  time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  # German keyboard layout (nodeadkeys variant)
+  console.keyMap = "de-latin1-nodeadkeys";
+  services.xserver.xkb = {
+    layout = "de";
+    variant = "nodeadkeys";
+  };
 
   networking.networkmanager.enable = true;
 
