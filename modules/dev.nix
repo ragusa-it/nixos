@@ -38,6 +38,8 @@
     # -- Git --
     lazygit
     gh              # GitHub CLI
+    delta           # Git diff viewer
+    meld            # Visual diff tool
 
     # -- Node.js --
     nodejs_22
@@ -54,10 +56,11 @@
     bat             # cat alternative
     fzf             # Fuzzy finder
     zoxide          # cd alternative
-    delta           # Git diff viewer
 
-    # -- Database Clients --
+    # -- Database & API Tools --
     postgresql      # psql client
+    dbeaver-bin     # Database GUI
+    insomnia        # API testing
     # redis          # Uncomment if needed
 
     # -- Misc --
