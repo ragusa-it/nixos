@@ -1,8 +1,17 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # Identification tags (shows in boot menu)
   system.nixos.tags = [ "gaming" "zen" ];
+
+  # --------------------------------------------------------------------------
+  # NIX-GAMING PLATFORM OPTIMIZATIONS
+  # --------------------------------------------------------------------------
+  imports = [
+    inputs.nix-gaming.nixosModules.platformOptimisations
+  ];
+  
+  nix-gaming.platformOptimisations.enable = true;
 
   # --------------------------------------------------------------------------
   # KERNEL - Zen for gaming performance
@@ -62,6 +71,7 @@
     # -- Performance Overlays --
     mangohud        # FPS counter, GPU stats
     goverlay        # MangoHud GUI config
+    vkbasalt        # Vulkan post-processing (sharpening, CAS)
 
     # -- Game Launchers --
     lutris          # Multi-platform launcher
@@ -76,6 +86,10 @@
     # -- Utilities --
     gamescope       # Micro-compositor for gaming
     corectrl        # AMD GPU control GUI
+    lact            # Linux AMDGPU Control Tool (alternative to CoreCtrl)
+    
+    # -- Communication --
+    discord         # Voice chat and gaming communities
 
     # -- Optional Game Clients --
     # prismlauncher # Minecraft

@@ -23,6 +23,19 @@
 
   networking.networkmanager.enable = true;
 
+  # Memory compression (reduces swap usage)
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 50;
+  };
+
+  # Firmware updates
+  services.fwupd.enable = true;
+
+  # Power profiles daemon (for laptop/power management)
+  services.power-profiles-daemon.enable = true;
+
   # --------------------------------------------------------------------------
   # AMD GPU - RDNA 4 (RX 9060 XT) + Zen 3 CPU (5700G)
   # --------------------------------------------------------------------------
@@ -162,6 +175,13 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    
+    # Low-latency configuration for gaming
+    lowLatency = {
+      enable = true;
+      quantum = 64;      # Buffer size (lower = less latency)
+      rate = 48000;      # Sample rate
+    };
   };
 
   # Disable PulseAudio (conflicts with PipeWire)
