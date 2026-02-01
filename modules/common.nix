@@ -117,7 +117,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
     # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
-    # Save it to the path defined in flake.nix (ensure permissions are 600)
+    # Save it to /etc/nixos/secrets/${username}/password.hash (ensure permissions are 600)
     hashedPasswordFile = passwordHashPath;
     packages = with pkgs; [
       # -- Noctalia Shell --

@@ -45,7 +45,8 @@
       && builtins.match "^_+$" username == null
       && builtins.match "^nix.*" username == null
       && username != "root";
-    hostConfig = ./hosts + "/${hostname}/hardware-configuration.nix";
+    hostConfig = assert builtins.pathExists (./hosts + "/${hostname}/hardware-configuration.nix");
+      ./hosts + "/${hostname}/hardware-configuration.nix";
     passwordHashPath = "/etc/nixos/secrets/${username}/password.hash";
     specialArgs = { inherit inputs system hostname username usernameValid passwordHashPath; };
 
