@@ -4,7 +4,7 @@
   assertions = [
     {
       assertion = usernameValid;
-      message = "username must be a simple system user name and not reserved.";
+      message = "username must start with a-z or _, contain only lowercase letters, digits, and underscores, and must not be root or start with nix.";
     }
   ];
   # --------------------------------------------------------------------------

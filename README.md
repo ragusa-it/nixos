@@ -136,12 +136,12 @@ sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 
 ### Change Password
 
-Generate a password hash and save it to `/etc/nixos/secrets/<username>/password.hash` (required before applying the config):
+Generate a password hash and save it to `/etc/nixos/secrets/<username>/password.hash` (replace `<username>` with your actual username):
 ```bash
-sudo mkdir -p /etc/nixos/secrets/<username>
-sudo chmod 700 /etc/nixos/secrets/<username>
-mkpasswd -m sha-512 | sudo tee /etc/nixos/secrets/<username>/password.hash
-sudo chmod 600 /etc/nixos/secrets/<username>/password.hash
+sudo mkdir -p /etc/nixos/secrets/john
+sudo chmod 700 /etc/nixos/secrets/john
+mkpasswd -m sha-512 | sudo tee /etc/nixos/secrets/john/password.hash
+sudo chmod 600 /etc/nixos/secrets/john/password.hash
 ```
 
 ### Setup MangoWC

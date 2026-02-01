@@ -45,8 +45,8 @@
       && builtins.match "^_+$" username == null
       && builtins.match "^nix" username == null
       && username != "root";
-    hostConfig = ./hosts + "/${hostname}/hardware-configuration.nix";
-    passwordHashPath = assert usernameValid; "/etc/nixos/secrets/${username}/password.hash";
+    hostConfig = (./hosts + "/${hostname}") + "/hardware-configuration.nix";
+    passwordHashPath = "/etc/nixos/secrets/${username}/password.hash";
     specialArgs = { inherit inputs system hostname username usernameValid passwordHashPath; };
 
     # Verify mango flake exports the expected module
