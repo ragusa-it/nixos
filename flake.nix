@@ -40,9 +40,15 @@
     hostname = "atlas";
     username = "pinj";
     lib = nixpkgs.lib;
+    usernameValid =
+      builtins.match "^[a-z_][a-z0-9_]*$" username != null
+      && builtins.match "^_+$" username == null
+      && builtins.match "^nix" username == null
+      && username != "root";
     hostConfig = ./hosts + "/${hostname}/hardware-configuration.nix";
-    passwordHashPath = "/etc/nixos/secrets/${username}/password.hash";
-    specialArgs = { inherit inputs system hostname username passwordHashPath; };
+    passwordHashPath = assert usernameValid;
+      "/etc/nixos/secrets/${username}/password.hash";
+    specialArgs = { inherit inputs system hostname username usernameValid passwordHashPath; };
 
     # Verify mango flake exports the expected module
     mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
