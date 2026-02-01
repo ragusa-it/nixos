@@ -121,9 +121,9 @@
   # FONTS
   # --------------------------------------------------------------------------
   fonts.packages = with pkgs; [
-    # Nerd fonts - syntax changed in NixOS 25.05+
-    # Old syntax was: (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    # New syntax is individual packages:
+    # Nerd fonts - syntax changed in nixpkgs after 24.05
+    # If using older nixpkgs: (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    # Current nixpkgs-unstable uses individual packages:
     nerd-fonts.jetbrains-mono
     
     # Other fonts

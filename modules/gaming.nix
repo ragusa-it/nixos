@@ -85,7 +85,10 @@
   boot.kernel.sysctl = {
     # Reduce swappiness for gaming
     "vm.swappiness" = 10;
-    # Increase max map count (needed for some games)
+    # Increase max map count for games requiring many memory mappings.
+    # This value (2^31 - 6) is the maximum safe value for signed 32-bit integers.
+    # Games like Star Citizen, Hogwarts Legacy, and some Unity/Unreal titles
+    # may crash without this setting due to high mmap requirements.
     "vm.max_map_count" = 2147483642;
   };
 
