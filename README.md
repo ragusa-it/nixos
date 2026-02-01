@@ -63,7 +63,7 @@ Defaults are set in `flake.nix` and used across modules. Update them there:
 | `time.timeZone` | `America/New_York` | `modules/common.nix` |
 | `i18n.defaultLocale` | `en_US.UTF-8` | `modules/common.nix` |
 
-Also rename the `hosts/<hostname>/` directory to match your actual hostname, and ensure the same hostname is set in `flake.nix`.
+Also rename the default `hosts/atlas/` directory to match your actual hostname, and ensure the same hostname is set in `flake.nix`.
 
 ### 3. Stage Files in Git
 
@@ -136,10 +136,12 @@ sudo nixos-rebuild boot --profile-name gaming --flake .#gaming
 
 ### Change Password
 
-Generate a password hash and save it to `/etc/nixos/secrets/<username>/password.hash`:
+Generate a password hash and save it to `/etc/nixos/secrets/<username>/password.hash` (required before applying the config):
 ```bash
-mkpasswd -m sha-512
-# Save the output to /etc/nixos/secrets/<username>/password.hash with 600 permissions
+sudo mkdir -p /etc/nixos/secrets/<username>
+sudo chmod 700 /etc/nixos/secrets/<username>
+mkpasswd -m sha-512 | sudo tee /etc/nixos/secrets/<username>/password.hash
+sudo chmod 600 /etc/nixos/secrets/<username>/password.hash
 ```
 
 ### Setup MangoWC
