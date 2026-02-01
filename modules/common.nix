@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system, hostname, username, ... }:
+{ config, pkgs, inputs, system, hostname, username, passwordHashPath, ... }:
 
 {
   assertions = [
@@ -118,7 +118,7 @@
     extraGroups = [ "wheel" "networkmanager" "video" "seat" ];
     # IMPORTANT: Generate a password hash with: mkpasswd -m sha-512
     # Save it to the path below (ensure permissions are 600)
-    hashedPasswordFile = "/etc/nixos/secrets/${username}/password.hash";
+    hashedPasswordFile = passwordHashPath;
     packages = with pkgs; [
       # -- Noctalia Shell --
       inputs.quickshell.packages.${system}.default

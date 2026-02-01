@@ -41,7 +41,8 @@
     username = "pinj";
     lib = nixpkgs.lib;
     hostConfig = ./hosts + "/${hostname}/hardware-configuration.nix";
-    specialArgs = { inherit inputs system hostname username; };
+    passwordHashPath = "/etc/nixos/secrets/${username}/password.hash";
+    specialArgs = { inherit inputs system hostname username passwordHashPath; };
 
     # Verify mango flake exports the expected module
     mangoModule = assert lib.hasAttrByPath [ "nixosModules" "mango" ] mango;
