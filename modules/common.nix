@@ -1,6 +1,12 @@
 { config, pkgs, inputs, system, hostname, username, ... }:
 
 {
+  assertions = [
+    {
+      assertion = builtins.match "^[a-z_][a-z0-9_-]*$" username != null;
+      message = "username must be a simple system user name without path separators.";
+    }
+  ];
   # --------------------------------------------------------------------------
   # BOOT
   # --------------------------------------------------------------------------
