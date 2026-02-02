@@ -191,11 +191,15 @@
     # Editors
     zed-editor
 
+    # Browser
+    inputs.zen-browser.packages.${pkgs.system}.default
+
     # Flake inputs
     inputs.noctalia.packages.${pkgs.system}.default
-    inputs.zen-browser.packages.${pkgs.system}.default
-    inputs.ghostty.packages.${pkgs.system}.default
     inputs.opencode.packages.${pkgs.system}.default
+
+    # Terminal
+    ghostty
 
     # AI coding
     claude-code
