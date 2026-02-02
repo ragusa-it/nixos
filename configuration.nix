@@ -27,8 +27,11 @@
   # ═══════════════════════════════════════════════════════════════
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  chaotic.scx.enable = true;  # Enable sched-ext schedulers for CachyOS
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v3;
+
+  # sched-ext scheduler for gaming performance
+  services.scx.enable = true;
+  services.scx.scheduler = "scx_lavd";  # Low-latency scheduler, good for gaming
 
   # ═══════════════════════════════════════════════════════════════
   # NETWORKING

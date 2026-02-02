@@ -28,7 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
 
   # Binary caches for faster builds
@@ -36,10 +36,12 @@
     extra-substituters = [
       "https://vicinae.cachix.org"
       "https://nix-community.cachix.org"
+      "https://attic.xuyh0120.win/lantian"
     ];
     extra-trusted-public-keys = [
       "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     ];
   };
 
@@ -53,7 +55,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
-          inputs.chaotic.nixosModules.default
+          { nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ]; }
         ];
       };
     };
