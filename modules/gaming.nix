@@ -1,5 +1,5 @@
 # modules/gaming.nix
-# Full gaming setup: Steam, Gamemode, Lutris, Heroic, MangoHud, Wine, Proton
+# Full gaming setup: Steam, Gamemode, Lutris, Heroic, Wine, Proton
 { config, pkgs, lib, ... }:
 
 {
@@ -46,10 +46,6 @@
     # Proton management
     protonup-qt         # GUI to manage Proton-GE versions
 
-    # Performance overlay
-    mangohud            # FPS counter, GPU/CPU stats overlay
-    goverlay            # GUI to configure MangoHud
-
     # Wine for non-Steam games
     wineWowPackages.stagingFull  # Latest Wine with all features
     winetricks                    # Wine helper scripts
@@ -59,11 +55,6 @@
     gamemode            # CLI tool to trigger gamemode
     gamescope           # Micro-compositor for games (fixes some issues)
   ];
-
-  # Allow MangoHud to work properly
-  environment.variables = {
-    MANGOHUD = "1";  # Enable by default (can be toggled per-game)
-  };
 
   # Gaming-related kernel tweaks
   boot.kernel.sysctl = {

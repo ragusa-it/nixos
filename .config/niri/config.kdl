@@ -1,6 +1,12 @@
 // Niri configuration for CachyOS
 // For documentation and full reference, see: https://github.com/YaLTeR/niri/wiki
 
+// ────────────── Cursor Configuration ──────────────
+cursor {
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+}
+
 // ────────────── Input Configuration ──────────────
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
 
@@ -328,6 +334,9 @@ binds {
         XDG_SESSION_TYPE "wayland"
         XDG_CURRENT_DESKTOP "niri"
         QS_ICON_THEME "Papirus-Dark"
+        GTK_THEME "adw-gtk3-dark"
+        XCURSOR_THEME "Adwaita"
+        XCURSOR_SIZE "24"
     }
 
     hotkey-overlay {

@@ -16,15 +16,10 @@
   # Use schedutil for modern AMD CPUs (responds to load dynamically)
   powerManagement.cpuFreqGovernor = "schedutil";
 
-  # Enable powertop auto-tune for additional optimizations
-  # (reduces power draw even on desktop when idle)
-  powerManagement.powertop.enable = true;
-
   # ═══════════════════════════════════════════════════════════════
   # PACKAGES
   # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
-    powertop             # Power consumption analyzer
     power-profiles-daemon # Already enabled as service, CLI tool for control
   ];
 
