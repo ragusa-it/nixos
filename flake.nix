@@ -27,6 +27,8 @@
       url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   # Binary caches for faster builds
@@ -49,7 +51,10 @@
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
-        modules = [ ./configuration.nix ];
+        modules = [
+          ./configuration.nix
+          inputs.chaotic.nixosModules.default
+        ];
       };
     };
 }
