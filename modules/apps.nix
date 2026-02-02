@@ -47,10 +47,15 @@
     unrar
 
     # ─────────────────────────────────────────────────────────────
-    # Screenshots
+    # Screenshots & Screen Recording
     # ─────────────────────────────────────────────────────────────
     swappy              # Screenshot annotation tool
     # grim + slurp already in your base config
+
+    # Screen recording
+    obs-studio          # Full-featured streaming/recording suite
+    gpu-screen-recorder # Lightweight GPU-accelerated recorder (AMD/NVIDIA/Intel)
+    kooha               # Simple GNOME-style screen recorder
 
     # ─────────────────────────────────────────────────────────────
     # Security & Passwords

@@ -15,6 +15,8 @@
     ./modules/apps.nix        # User applications
     ./modules/dev.nix         # Docker, dev tools
     ./modules/theming.nix     # Fonts, themes, cursors
+    ./modules/virtualization.nix  # QEMU, KVM, virt-manager
+    ./modules/power.nix       # Power management, CPU governors
   ];
 
   # ═══════════════════════════════════════════════════════════════

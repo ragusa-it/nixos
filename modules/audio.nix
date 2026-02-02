@@ -12,6 +12,7 @@
     pwvucontrol         # Modern PipeWire volume control (Qt)
     pavucontrol         # Classic PulseAudio volume control (GTK) - as backup
     helvum              # PipeWire patchbay for routing audio
+    qpwgraph            # PipeWire graph editor (visual audio routing)
 
     # Media player control
     playerctl           # Control media players via D-Bus (for media keys)
