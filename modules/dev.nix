@@ -75,37 +75,22 @@
     httpie              # Better curl
     curlie              # Curl wrapper with httpie-like syntax
 
+    # Additional CLI tools (migrated from Arch)
+    tealdeer            # tldr - simplified man pages
+    duf                 # Better df (disk usage)
+    sd                  # Better sed (find & replace)
+    pv                  # Pipe viewer (progress bar for pipes)
+    parallel            # GNU parallel (run commands in parallel)
+    inxi                # System information tool
+    glances             # System monitor (htop alternative)
+    grc                 # Generic colorizer for CLI output
+
     # ─────────────────────────────────────────────────────────────
     # Database Tools
     # ─────────────────────────────────────────────────────────────
     dbeaver-bin         # Universal database tool (GUI)
   ];
 
-  # Better shell experience for development
-  programs.zsh = {
-    # Already enabled in base config
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      ll = "eza -la --icons --git";
-      ls = "eza --icons";
-      cat = "bat";
-      find = "fd";
-      grep = "rg";
-      
-      # Docker shortcuts
-      dc = "docker-compose";
-      dps = "docker ps";
-      
-      # Git shortcuts
-      gs = "git status";
-      gd = "git diff";
-      gl = "git log --oneline -20";
-      
-      # NixOS shortcuts
-      rebuild = "sudo nixos-rebuild switch --flake .";
-      update = "nix flake update";
-    };
-  };
+  # Note: Shell aliases are now managed in shell.nix (Fish shell)
+  # Zsh is kept as a fallback shell but Fish is the primary
 }

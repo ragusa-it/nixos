@@ -94,6 +94,14 @@
     wtype            # Wayland keyboard automation
     wlr-randr        # Display configuration
     wayland-utils    # Debug utilities
+
+    # ─────────────────────────────────────────────────────────────
+    # Additional desktop utilities (migrated from Arch)
+    # ─────────────────────────────────────────────────────────────
+    cliphist         # Clipboard history for Wayland
+    wlsunset         # Blue light filter / night mode
+    brightnessctl    # Brightness control (even for desktop monitors via DDC)
+    wlogout          # Logout menu / session manager
   ];
 
   # Environment variables for Wayland compatibility

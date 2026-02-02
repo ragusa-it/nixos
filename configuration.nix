@@ -17,6 +17,9 @@
     ./modules/theming.nix     # Fonts, themes, cursors
     ./modules/virtualization.nix  # QEMU, KVM, virt-manager
     ./modules/power.nix       # Power management, CPU governors
+    ./modules/shell.nix       # Fish shell configuration
+    ./modules/services.nix    # System services (fstrim, zram, avahi, psd)
+    ./modules/navidrome.nix   # Music streaming server
   ];
 
   # ═══════════════════════════════════════════════════════════════
@@ -102,13 +105,13 @@
       # - gamemode (gaming.nix)
       # - corectrl (gpu-amd.nix)
     ];
-    shell = pkgs.zsh;
+    shell = pkgs.fish;  # Fish shell (migrated from Arch)
   };
 
   # ═══════════════════════════════════════════════════════════════
   # PROGRAMS
   # ═══════════════════════════════════════════════════════════════
-  programs.zsh.enable = true;
+  programs.zsh.enable = true;  # Keep zsh available as fallback
   programs.yazi.enable = true;
   programs.firefox.enable = true;
   programs.niri.enable = true;

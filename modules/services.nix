@@ -1,56 +1,81 @@
-# modules/virtualization.nix
-# Virtual machine support: QEMU, KVM, libvirt, virt-manager
+# modules/services.nix
+# System services: SSD maintenance, swap, mDNS, profile sync
 { config, pkgs, lib, ... }:
 
 {
   # ═══════════════════════════════════════════════════════════════
-  # LIBVIRT & QEMU
+  # SSD MAINTENANCE
   # ═══════════════════════════════════════════════════════════════
-  virtualisation.libvirtd = {
+  # Weekly TRIM for SSDs (improves longevity and performance)
+  services.fstrim = {
     enable = true;
+    interval = "weekly";
+  };
 
-    # QEMU configuration
-    qemu = {
-      package = pkgs.qemu_kvm;
+  # ═══════════════════════════════════════════════════════════════
+  # ZRAM SWAP
+  # ═══════════════════════════════════════════════════════════════
+  # Compressed swap in RAM - better than no swap, faster than disk
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";        # Best compression ratio
+    memoryPercent = 50;        # Use up to 50% of RAM for compressed swap
+  };
 
-      # Enable TPM emulation for Windows 11
-      swtpm.enable = true;
-
-      # Run QEMU as non-root for better security
-      runAsRoot = false;
+  # ═══════════════════════════════════════════════════════════════
+  # MDNS / AVAHI
+  # ═══════════════════════════════════════════════════════════════
+  # mDNS for local network discovery (.local domains)
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;           # Enable .local resolution
+    openFirewall = true;       # Allow mDNS through firewall
+    
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
     };
   };
 
   # ═══════════════════════════════════════════════════════════════
-  # SPICE SUPPORT (for better VM display/clipboard/USB)
+  # PROFILE SYNC DAEMON
   # ═══════════════════════════════════════════════════════════════
-  virtualisation.spiceUSBRedirection.enable = true;
+  # Sync browser profiles to RAM for faster performance
+  # Works with Firefox/Zen Browser profiles
+  services.psd = {
+    enable = true;
+  };
+
+  # User needs to configure ~/.config/psd/psd.conf after first run
+  # Default will auto-detect Firefox profiles
 
   # ═══════════════════════════════════════════════════════════════
-  # NETWORKING FOR VMS
+  # ADDITIONAL SYSTEM OPTIMIZATIONS
   # ═══════════════════════════════════════════════════════════════
-  # Enable default NAT network (virbr0)
-  networking.firewall.trustedInterfaces = [ "virbr0" ];
+  
+  # Enable firmware updates
+  services.fwupd.enable = true;
+
+  # Thermald for Intel CPUs (AMD uses different thermal management)
+  # Uncomment if on Intel:
+  # services.thermald.enable = true;
+
+  # Early OOM killer - prevents system freeze on memory exhaustion
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;      # Start killing at 5% free memory
+    freeSwapThreshold = 10;    # Also consider swap
+    enableNotifications = true;
+  };
 
   # ═══════════════════════════════════════════════════════════════
-  # PACKAGES
+  # LOCATE DATABASE
   # ═══════════════════════════════════════════════════════════════
-  environment.systemPackages = with pkgs; [
-    virt-manager        # GUI for managing VMs
-    virt-viewer         # Viewer for VM displays (SPICE/VNC)
-    virtiofsd           # Fast file sharing between host and VM
-    qemu-utils          # QEMU utilities (qemu-img, etc.)
-    spice-gtk           # SPICE client libraries
-  ];
-
-  # ═══════════════════════════════════════════════════════════════
-  # USER PERMISSIONS
-  # ═══════════════════════════════════════════════════════════════
-  users.users.pinj.extraGroups = [ "libvirtd" ];
-
-  # ═══════════════════════════════════════════════════════════════
-  # DCONF SETTINGS FOR VIRT-MANAGER
-  # ═══════════════════════════════════════════════════════════════
-  # Auto-connect to the system QEMU/KVM
-  programs.virt-manager.enable = true;
+  # Fast file search with plocate
+  services.locate = {
+    enable = true;
+    package = pkgs.plocate;
+    interval = "daily";
+  };
 }

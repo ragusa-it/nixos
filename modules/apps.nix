@@ -16,6 +16,10 @@
     # Music
     # ─────────────────────────────────────────────────────────────
     amberol             # Simple music player for local files
+    feishin             # Navidrome/Jellyfin client
+    picard              # MusicBrainz Picard - music tagger
+    beets               # Music library manager
+    cava                # Audio visualizer
     # Feishin available via Flatpak for Navidrome/Jellyfin
 
     # ─────────────────────────────────────────────────────────────
@@ -23,6 +27,8 @@
     # ─────────────────────────────────────────────────────────────
     vesktop             # Discord client (Wayland-native, with Vencord)
     thunderbird         # Email client
+    signal-desktop      # Encrypted messaging
+    telegram-desktop    # Telegram client
 
     # ─────────────────────────────────────────────────────────────
     # Office & Productivity
@@ -69,6 +75,9 @@
     gnome-calculator    # Calculator
     gnome-clocks        # World clocks, alarms, timers
     baobab              # Disk usage analyzer
+    localsend           # AirDrop-like file sharing (cross-platform)
+    meld                # Visual diff and merge tool
+    rclone              # Cloud storage sync (Google Drive, Dropbox, etc.)
   ];
 
   # GNOME Keyring for secrets storage
