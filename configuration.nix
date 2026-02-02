@@ -87,8 +87,20 @@
   # ═══════════════════════════════════════════════════════════════
   # BLUETOOTH
   # ═══════════════════════════════════════════════════════════════
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        Experimental = true;
+        KernelExperimental = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
 
   # ═══════════════════════════════════════════════════════════════
   # PRINTING
