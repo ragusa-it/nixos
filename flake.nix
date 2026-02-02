@@ -4,27 +4,24 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Desktop shell
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    opencode = {
-      url = "github:anomalyco/opencode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    # Application launcher
     vicinae = {
       url = "github:vicinaehq/vicinae";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+
+    # NOTE: GUI apps (zen-browser, opencode) are now managed via `nix profile`
+    # Install with: nix profile install github:youwen5/zen-browser-flake
+    #               nix profile install github:anomalyco/opencode
   };
 
   # Binary caches for faster builds

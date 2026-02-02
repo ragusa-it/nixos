@@ -43,20 +43,14 @@
   hardware.steam-hardware.enable = true;
 
   # Gaming packages
+  # NOTE: Game launchers (lutris, heroic, protonup-qt) are in `nix profile`
   environment.systemPackages = with pkgs; [
-    # Game launchers
-    lutris # Multi-platform game launcher
-    heroic # Epic Games & GOG launcher
-
-    # Proton management
-    protonup-qt # GUI to manage Proton-GE versions
-
     # Wine for non-Steam games
     wineWowPackages.stagingFull # Latest Wine with all features
     winetricks # Wine helper scripts
     protontricks # Proton helper scripts (like winetricks for Proton)
 
-    # Misc gaming utilities
+    # Gaming utilities (system integration)
     gamemode # CLI tool to trigger gamemode
     gamescope # Micro-compositor for games (fixes some issues)
   ];

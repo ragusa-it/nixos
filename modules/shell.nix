@@ -76,6 +76,10 @@
       search = "nix search nixpkgs";
       gc-nix = "sudo nix-collect-garbage -d";
 
+      # User profile (GUI apps, fast-updating tools)
+      update-apps = "nix profile upgrade '.*'";
+      list-apps = "nix profile list";
+
       # System
       ports = "ss -tulanp";
       myip = "curl -s ifconfig.me";

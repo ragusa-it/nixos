@@ -30,12 +30,12 @@
   };
 
   # Development packages
+  # NOTE: GUI tools (dbeaver) and optional TUIs (lazygit, lazydocker) are in `nix profile`
   environment.systemPackages = with pkgs; [
     # ─────────────────────────────────────────────────────────────
     # Containers
     # ─────────────────────────────────────────────────────────────
     docker-compose # Docker Compose v2
-    lazydocker # Terminal UI for Docker
 
     # ─────────────────────────────────────────────────────────────
     # Languages & Runtimes
@@ -58,7 +58,6 @@
     # ─────────────────────────────────────────────────────────────
     git
     gh # GitHub CLI
-    lazygit # Terminal UI for Git
     delta # Better git diff
 
     # ─────────────────────────────────────────────────────────────
@@ -68,7 +67,7 @@
     nixfmt # Nix formatter
 
     # ─────────────────────────────────────────────────────────────
-    # CLI Utilities
+    # CLI Utilities (used by shell aliases)
     # ─────────────────────────────────────────────────────────────
     jq # JSON processor
     yq # YAML processor
@@ -77,23 +76,13 @@
     fzf # Fuzzy finder
     eza # Modern ls
     bat # Cat with syntax highlighting
-    httpie # Better curl
-    curlie # Curl wrapper with httpie-like syntax
 
-    # Additional CLI tools (migrated from Arch)
+    # Additional CLI tools
     tealdeer # tldr - simplified man pages
     duf # Better df (disk usage)
     sd # Better sed (find & replace)
     pv # Pipe viewer (progress bar for pipes)
     parallel # GNU parallel (run commands in parallel)
-    inxi # System information tool
-    glances # System monitor (htop alternative)
-    grc # Generic colorizer for CLI output
-
-    # ─────────────────────────────────────────────────────────────
-    # Database Tools
-    # ─────────────────────────────────────────────────────────────
-    dbeaver-bin # Universal database tool (GUI)
   ];
 
   # Note: Shell aliases are now managed in shell.nix (Fish shell)

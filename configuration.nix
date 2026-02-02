@@ -169,9 +169,10 @@
   # ═══════════════════════════════════════════════════════════════
   # SYSTEM PACKAGES (Base essentials)
   # ═══════════════════════════════════════════════════════════════
+  # NOTE: GUI apps and fast-updating tools are managed via `nix profile`
+  # Run `update-apps` to update them, `list-apps` to see installed
   environment.systemPackages = with pkgs; [
     # Core utilities
-    fastfetch
     micro
     wget
     curl
@@ -188,21 +189,11 @@
     # File management
     nautilus
 
-    # Editors
-    zed-editor
-
-    # Browser
-    inputs.zen-browser.packages.${pkgs.system}.default
-
-    # Flake inputs
+    # Flake inputs (desktop shell)
     inputs.noctalia.packages.${pkgs.system}.default
-    inputs.opencode.packages.${pkgs.system}.default
 
     # Terminal
     ghostty
-
-    # AI coding
-    claude-code
 
     # Package managers
     pnpm
