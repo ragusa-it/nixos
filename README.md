@@ -20,51 +20,46 @@ Personal NixOS desktop configuration built with **Nix flakes** for x86_64-linux.
 
 ## Installation (fresh NixOS install)
 
-1. **Download and boot the NixOS ISO**
+1. **Download and boot the NixOS graphical installer**
    - <https://nixos.org/download.html>
 
-2. **Connect to the network** (for cloning and downloading packages)
+2. **Follow the graphical installer**
+   - Partition your drives as needed
+   - Create your user account
+   - When prompted for desktop environment, select **No desktop**
+   - Complete the installation
 
-3. **Partition and mount disks**
-   - Follow the NixOS manual for your disk layout: <https://nixos.org/manual/nixos/stable/#sec-installation>
+3. **Reboot and log in** to your new shell-only NixOS system
 
-4. **Generate hardware configuration**
-
-   ```sh
-   sudo -i
-   nixos-generate-config --root /mnt
-   ```
-
-5. **Clone this repository into the target system**
+4. **Clone this repository**
 
    ```sh
-   git clone https://github.com/ragusa-it/nixos /mnt/etc/nixos/atlas
+   git clone https://github.com/ragusa-it/nixos ~/nixos
    ```
 
-6. **Copy the generated hardware config into the repo**
+5. **Copy your hardware configuration into the repo**
 
    ```sh
-   cp /mnt/etc/nixos/hardware-configuration.nix /mnt/etc/nixos/atlas/hardware-configuration.nix
+   cp /etc/nixos/hardware-configuration.nix ~/nixos/hardware-configuration.nix
    ```
 
-7. **Review and customize**
+6. **Review and customize**
 
    - `configuration.nix`
      - `networking.hostName`
      - `users.users.pinj` (change username/groups as needed)
    - `modules/gpu-amd.nix` if you are **not** on AMD hardware
 
-8. **Install NixOS using the flake**
+7. **Rebuild with the flake**
 
    ```sh
-   export NIX_CONFIG="experimental-features = nix-command flakes"
-   nixos-install --flake /mnt/etc/nixos/atlas#nixos
+   sudo nixos-rebuild switch --flake ~/nixos#nixos
    ```
 
-9. **Reboot into the new system**
+8. **Reboot** to start the full desktop environment
 
    ```sh
-   reboot
+   sudo reboot
    ```
 
 ## Post-install rebuilds
@@ -109,8 +104,8 @@ sudo nixos-rebuild switch --flake .#nixos
 
 ## Troubleshooting
 
-- **Flakes not enabled**: ensure the `NIX_CONFIG` environment variable is set (see install step) or enable flakes in `/etc/nix/nix.conf`.
-- **Wrong hardware configuration**: regenerate with `nixos-generate-config --root /` and replace `hardware-configuration.nix`.
+- **Flakes not enabled**: if `nixos-rebuild` fails, prefix the command with `NIX_CONFIG="experimental-features = nix-command flakes"` or enable flakes in `/etc/nix/nix.conf`.
+- **Wrong hardware configuration**: regenerate with `sudo nixos-generate-config` and copy the new `hardware-configuration.nix` into the repo.
 
 ## License
 
