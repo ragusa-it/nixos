@@ -1,6 +1,11 @@
 # modules/power.nix
 # Power management for desktop: CPU governor control, power profiles
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ═══════════════════════════════════════════════════════════════

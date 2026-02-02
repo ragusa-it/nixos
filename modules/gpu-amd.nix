@@ -1,16 +1,21 @@
 # modules/gpu-amd.nix
 # AMD GPU configuration: drivers, Vulkan, VA-API hardware acceleration, CoreCtrl
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Enable OpenGL/Vulkan
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;  # For Steam and 32-bit games
+    enable32Bit = true; # For Steam and 32-bit games
 
     extraPackages = with pkgs; [
       # VA-API for hardware video acceleration
-      libva-vdpau-driver  # Renamed from vaapiVdpau
+      libva-vdpau-driver # Renamed from vaapiVdpau
       libvdpau-va-gl
 
       # OpenCL support (optional, for compute workloads)
@@ -45,15 +50,15 @@
   # GPU monitoring tools
   environment.systemPackages = with pkgs; [
     # Monitoring
-    radeontop           # AMD GPU monitoring (like nvidia-smi)
-    nvtopPackages.amd   # Modern GPU monitor with AMD support
+    radeontop # AMD GPU monitoring (like nvidia-smi)
+    nvtopPackages.amd # Modern GPU monitor with AMD support
 
     # Vulkan tools
-    vulkan-tools        # vulkaninfo, etc.
+    vulkan-tools # vulkaninfo, etc.
     vulkan-loader
 
     # Video acceleration verification
-    libva-utils         # vainfo - verify VA-API
-    vdpauinfo           # Verify VDPAU
+    libva-utils # vainfo - verify VA-API
+    vdpauinfo # Verify VDPAU
   ];
 }

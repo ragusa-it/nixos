@@ -1,6 +1,11 @@
 # modules/navidrome.nix
 # Self-hosted music streaming server
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ═══════════════════════════════════════════════════════════════
@@ -24,8 +29,8 @@
       EnableTranscodingConfig = true;
 
       # Scan settings
-      ScanSchedule = "@every 1h";    # Rescan library every hour
-      
+      ScanSchedule = "@every 1h"; # Rescan library every hour
+
       # Last.fm scrobbling (configure in UI after setup)
       LastFM.Enabled = true;
 

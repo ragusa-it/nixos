@@ -1,6 +1,11 @@
 # modules/virtualization.nix
 # Virtual machine support: QEMU, KVM, libvirt, virt-manager
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ═══════════════════════════════════════════════════════════════
@@ -36,11 +41,11 @@
   # PACKAGES
   # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
-    virt-manager        # GUI for managing VMs
-    virt-viewer         # Viewer for VM displays (SPICE/VNC)
-    virtiofsd           # Fast file sharing between host and VM
-    qemu-utils          # QEMU utilities (qemu-img, etc.)
-    spice-gtk           # SPICE client libraries
+    virt-manager # GUI for managing VMs
+    virt-viewer # Viewer for VM displays (SPICE/VNC)
+    virtiofsd # Fast file sharing between host and VM
+    qemu-utils # QEMU utilities (qemu-img, etc.)
+    spice-gtk # SPICE client libraries
   ];
 
   # ═══════════════════════════════════════════════════════════════

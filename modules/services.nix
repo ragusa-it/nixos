@@ -1,6 +1,11 @@
 # modules/services.nix
 # System services: SSD maintenance, swap, mDNS, profile sync
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # ═══════════════════════════════════════════════════════════════
@@ -18,8 +23,8 @@
   # Compressed swap in RAM - better than no swap, faster than disk
   zramSwap = {
     enable = true;
-    algorithm = "zstd";        # Best compression ratio
-    memoryPercent = 50;        # Use up to 50% of RAM for compressed swap
+    algorithm = "zstd"; # Best compression ratio
+    memoryPercent = 50; # Use up to 50% of RAM for compressed swap
   };
 
   # ═══════════════════════════════════════════════════════════════
@@ -28,9 +33,9 @@
   # mDNS for local network discovery (.local domains)
   services.avahi = {
     enable = true;
-    nssmdns4 = true;           # Enable .local resolution
-    openFirewall = true;       # Allow mDNS through firewall
-    
+    nssmdns4 = true; # Enable .local resolution
+    openFirewall = true; # Allow mDNS through firewall
+
     publish = {
       enable = true;
       addresses = true;
@@ -53,7 +58,7 @@
   # ═══════════════════════════════════════════════════════════════
   # ADDITIONAL SYSTEM OPTIMIZATIONS
   # ═══════════════════════════════════════════════════════════════
-  
+
   # Enable firmware updates
   services.fwupd.enable = true;
 
@@ -64,8 +69,8 @@
   # Early OOM killer - prevents system freeze on memory exhaustion
   services.earlyoom = {
     enable = true;
-    freeMemThreshold = 5;      # Start killing at 5% free memory
-    freeSwapThreshold = 10;    # Also consider swap
+    freeMemThreshold = 5; # Start killing at 5% free memory
+    freeSwapThreshold = 10; # Also consider swap
     enableNotifications = true;
   };
 

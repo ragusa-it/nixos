@@ -1,6 +1,11 @@
 # modules/audio.nix
 # Audio and Bluetooth configuration: Blueman GUI, volume control, media keys
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Bluetooth GUI management
@@ -9,17 +14,17 @@
   # Audio packages
   environment.systemPackages = with pkgs; [
     # PipeWire volume control
-    pwvucontrol         # Modern PipeWire volume control (Qt)
-    pavucontrol         # Classic PulseAudio volume control (GTK) - as backup
-    helvum              # PipeWire patchbay for routing audio
-    qpwgraph            # PipeWire graph editor (visual audio routing)
+    pwvucontrol # Modern PipeWire volume control (Qt)
+    pavucontrol # Classic PulseAudio volume control (GTK) - as backup
+    helvum # PipeWire patchbay for routing audio
+    qpwgraph # PipeWire graph editor (visual audio routing)
 
     # Media player control
-    playerctl           # Control media players via D-Bus (for media keys)
+    playerctl # Control media players via D-Bus (for media keys)
 
     # Audio tools
-    easyeffects         # Audio effects and equalizer for PipeWire
-    
+    easyeffects # Audio effects and equalizer for PipeWire
+
     # Bluetooth audio codecs are handled by PipeWire automatically
   ];
 
@@ -34,10 +39,26 @@
         "bluez5.enable-hw-volume" = true;
 
         # Bluetooth headset roles
-        "bluez5.roles" = [ "a2dp_sink" "a2dp_source" "bap_sink" "bap_source" "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+        "bluez5.roles" = [
+          "a2dp_sink"
+          "a2dp_source"
+          "bap_sink"
+          "bap_source"
+          "hsp_hs"
+          "hsp_ag"
+          "hfp_hf"
+          "hfp_ag"
+        ];
 
         # Codec preference order (highest quality first)
-        "bluez5.codecs" = [ "ldac" "aac" "aptx_hd" "aptx" "sbc_xq" "sbc" ];
+        "bluez5.codecs" = [
+          "ldac"
+          "aac"
+          "aptx_hd"
+          "aptx"
+          "sbc_xq"
+          "sbc"
+        ];
       };
     };
   };

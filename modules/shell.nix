@@ -1,6 +1,11 @@
 # modules/shell.nix
 # Fish shell configuration with plugins and aliases
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Enable Fish shell
@@ -98,13 +103,13 @@
   # Fish plugins (managed by NixOS)
   environment.systemPackages = with pkgs; [
     # Fish plugins
-    fishPlugins.pure           # Pure prompt (minimal & fast)
-    fishPlugins.autopair       # Auto-close brackets, quotes
-    fishPlugins.fzf-fish       # Fzf integration for fish
-    fishPlugins.done           # Notification when long command finishes
-    fishPlugins.grc            # Colorize command output
+    fishPlugins.pure # Pure prompt (minimal & fast)
+    fishPlugins.autopair # Auto-close brackets, quotes
+    fishPlugins.fzf-fish # Fzf integration for fish
+    fishPlugins.done # Notification when long command finishes
+    fishPlugins.grc # Colorize command output
 
     # Required by aliases
-    dust                       # Better du
+    dust # Better du
   ];
 }
