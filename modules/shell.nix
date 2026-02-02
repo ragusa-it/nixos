@@ -113,7 +113,8 @@
     fishPlugins.done # Notification when long command finishes
     fishPlugins.grc # Colorize command output
 
-    # Required by aliases
+    # Required by plugins/aliases
+    grc # Required by fishPlugins.grc
     dust # Better du
   ];
 }

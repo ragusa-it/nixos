@@ -42,9 +42,6 @@ nixos/
 | `nixpkgs` | NixOS unstable channel |
 | `nix-cachyos-kernel` | CachyOS optimized kernel |
 | `noctalia` | Noctalia shell |
-| `zen-browser` | Zen Browser |
-| `ghostty` | Ghostty terminal emulator |
-| `opencode` | OpenCode |
 | `vicinae` | Vicinae launcher |
 
 ## 📦 Installation
@@ -106,6 +103,18 @@ nix flake update
 nix flake lock --update-input nixpkgs
 ```
 
+### Update User Apps
+
+GUI applications and fast-updating tools are managed via `nix profile` for instant updates without system rebuilds:
+
+```bash
+# Update all user apps
+update-apps
+
+# List installed user apps
+list-apps
+```
+
 ### Garbage Collection
 
 Automatic garbage collection is configured weekly, but you can run it manually:
@@ -150,18 +159,20 @@ The gaming module provides:
 Included tools:
 
 - **Languages**: Node.js 22, Python 3, Rust (via rustup), Bun
-- **Containers**: Docker with auto-prune, docker-compose, lazydocker
-- **Git**: lazygit, gh (GitHub CLI), delta (better diffs)
+- **Containers**: Docker with auto-prune, docker-compose
+- **Git**: gh (GitHub CLI), delta (better diffs)
 - **CLI**: ripgrep, fd, fzf, eza, bat, jq, yq, and more
-- **Editors**: Zed, VS Code (config), micro
+- **Editors**: micro (system), Zed (user profile)
+
+*Additional dev tools via user profile: lazygit, lazydocker, dbeaver, httpie*
 
 ## 🎵 Audio & Media
 
 - **Audio Stack**: PipeWire with JACK support
 - **Bluetooth**: Enabled with experimental features
 - **Music Server**: Navidrome for self-hosted streaming
-- **Music Client**: Feishin
-- **Video**: MPV, Celluloid, OBS Studio
+
+*Media apps via user profile: Feishin, MPV, Celluloid, OBS Studio, Amberol*
 
 ## ⚙️ Key Services
 
@@ -173,6 +184,66 @@ Included tools:
 | Avahi | Local network discovery |
 | Profile-sync-daemon | Browser profile in tmpfs |
 | ZRAM | Compressed swap in RAM |
+
+## 📦 Package Management
+
+This configuration follows the NixOS best practice of separating system and user packages:
+
+### System Config (`environment.systemPackages`)
+
+Packages that require system integration:
+- Services (Docker, Tailscale, Steam)
+- Hardware support (gamemode, gamescope)
+- Desktop infrastructure (portals, polkit, Wayland utils)
+- Shell and plugins (Fish, shell aliases dependencies)
+- Build tools and runtimes (gcc, nodejs, python, rustup)
+
+### User Profile (`nix profile`)
+
+GUI apps and fast-updating tools managed independently.
+
+**Prerequisite:** Enable unfree packages for nix profile:
+```bash
+mkdir -p ~/.config/nixpkgs
+echo '{ allowUnfree = true; }' > ~/.config/nixpkgs/config.nix
+```
+
+**Install packages:**
+```bash
+# Priority tools (AI coding, editors, browser)
+nix profile add github:youwen5/zen-browser-flake
+nix profile add github:anomalyco/opencode
+nix profile add nixpkgs#claude-code
+nix profile add nixpkgs#zed-editor
+
+# Communication
+nix profile add nixpkgs#vesktop nixpkgs#thunderbird nixpkgs#signal-desktop nixpkgs#telegram-desktop
+
+# Productivity
+nix profile add nixpkgs#libreoffice-fresh nixpkgs#obsidian
+
+# Media
+nix profile add nixpkgs#loupe nixpkgs#evince nixpkgs#celluloid nixpkgs#mpv
+nix profile add nixpkgs#amberol nixpkgs#feishin nixpkgs#picard nixpkgs#beets nixpkgs#cava
+nix profile add nixpkgs#obs-studio nixpkgs#gpu-screen-recorder nixpkgs#kooha nixpkgs#swappy
+
+# Utilities
+nix profile add nixpkgs#btop nixpkgs#mission-center nixpkgs#bitwarden-desktop
+nix profile add nixpkgs#gnome-calculator nixpkgs#gnome-clocks nixpkgs#baobab
+nix profile add nixpkgs#localsend nixpkgs#meld nixpkgs#fastfetch
+
+# Dev tools
+nix profile add nixpkgs#lazygit nixpkgs#lazydocker nixpkgs#dbeaver-bin
+nix profile add nixpkgs#httpie nixpkgs#curlie nixpkgs#glances nixpkgs#inxi
+
+# Gaming
+nix profile add nixpkgs#lutris nixpkgs#heroic nixpkgs#protonup-qt
+```
+
+**Benefits:**
+- Update apps instantly with `update-apps` (no sudo, no rebuild)
+- System stays stable while apps get latest versions
+- Faster iteration for daily-use tools
 
 ## 📝 Notes
 
