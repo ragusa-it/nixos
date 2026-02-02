@@ -1,4 +1,3 @@
-#flake.nix
 {
   description = "atlas - NixOS Config for Desktop";
 

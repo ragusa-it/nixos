@@ -99,7 +99,6 @@
   programs.yazi.enable = true;
   programs.firefox.enable = true;
   programs.niri.enable = true;
-
   programs.zsh.enable = true;
   users.users.pinj.shell = pkgs.zsh;
 
@@ -136,14 +135,6 @@
 
   fonts.fontconfig.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
   # List services that you want to enable:
   services.openssh.enable = true;
   services.tailscale.enable = true;
@@ -160,6 +151,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11";
 
 }
