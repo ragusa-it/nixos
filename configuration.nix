@@ -1,6 +1,12 @@
 # configuration.nix
 # Main NixOS configuration - imports modular components
-{ config, pkgs, inputs, lib, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -8,18 +14,18 @@
     ./hardware-configuration.nix
 
     # Modular configuration
-    ./modules/desktop.nix     # Portal, polkit, launcher, lock, wallpaper
-    ./modules/gpu-amd.nix     # AMD graphics, Vulkan, VA-API
-    ./modules/audio.nix       # Bluetooth, audio controls
-    ./modules/gaming.nix      # Steam, Gamemode, Lutris, etc.
-    ./modules/apps.nix        # User applications
-    ./modules/dev.nix         # Docker, dev tools
-    ./modules/theming.nix     # Fonts, themes, cursors
-    ./modules/virtualization.nix  # QEMU, KVM, virt-manager
-    ./modules/power.nix       # Power management, CPU governors
-    ./modules/shell.nix       # Fish shell configuration
-    ./modules/services.nix    # System services (fstrim, zram, avahi, psd)
-    ./modules/navidrome.nix   # Music streaming server
+    ./modules/desktop.nix # Portal, polkit, launcher, lock, wallpaper
+    ./modules/gpu-amd.nix # AMD graphics, Vulkan, VA-API
+    ./modules/audio.nix # Bluetooth, audio controls
+    ./modules/gaming.nix # Steam, Gamemode, Lutris, etc.
+    ./modules/apps.nix # User applications
+    ./modules/dev.nix # Docker, dev tools
+    ./modules/theming.nix # Fonts, themes, cursors
+    ./modules/virtualization.nix # QEMU, KVM, virt-manager
+    ./modules/power.nix # Power management, CPU governors
+    ./modules/shell.nix # Fish shell configuration
+    ./modules/services.nix # System services (fstrim, zram, avahi, psd)
+    ./modules/navidrome.nix # Music streaming server
   ];
 
   # ═══════════════════════════════════════════════════════════════
@@ -31,12 +37,12 @@
 
   # sched-ext scheduler for gaming performance
   services.scx.enable = true;
-  services.scx.scheduler = "scx_lavd";  # Low-latency scheduler, good for gaming
+  services.scx.scheduler = "scx_lavd"; # Low-latency scheduler, good for gaming
 
   # ═══════════════════════════════════════════════════════════════
   # NETWORKING
   # ═══════════════════════════════════════════════════════════════
-  networking.hostName = "atlas";
+  networking.hostName = "nix";
   networking.networkmanager.enable = true;
 
   # ═══════════════════════════════════════════════════════════════
@@ -81,7 +87,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;  # For pro audio apps
+    jack.enable = true; # For pro audio apps
   };
 
   # ═══════════════════════════════════════════════════════════════
@@ -114,20 +120,20 @@
     isNormalUser = true;
     description = "Melvin Ragusa";
     extraGroups = [
-      "wheel"           # Sudo access
-      "networkmanager"  # Network configuration
+      "wheel" # Sudo access
+      "networkmanager" # Network configuration
       # Additional groups are added by modules:
       # - docker (dev.nix)
       # - gamemode (gaming.nix)
       # - corectrl (gpu-amd.nix)
     ];
-    shell = pkgs.fish;  # Fish shell (migrated from Arch)
+    shell = pkgs.fish; # Fish shell (migrated from Arch)
   };
 
   # ═══════════════════════════════════════════════════════════════
   # PROGRAMS
   # ═══════════════════════════════════════════════════════════════
-  programs.zsh.enable = true;  # Keep zsh available as fallback
+  programs.zsh.enable = true; # Keep zsh available as fallback
   programs.yazi.enable = true;
   programs.firefox.enable = true;
   programs.niri.enable = true;
@@ -136,13 +142,19 @@
   # NIX SETTINGS
   # ═══════════════════════════════════════════════════════════════
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
 
     # Optimize storage
     auto-optimise-store = true;
 
     # Trust users for substituters
-    trusted-users = [ "root" "@wheel" ];
+    trusted-users = [
+      "root"
+      "@wheel"
+    ];
   };
 
   # Garbage collection
@@ -165,7 +177,8 @@
     curl
 
     # Nix tools
-    nil               # Nix LSP
+    nil # Nix LSP
+    nixd
 
     # Wayland
     xwayland-satellite
