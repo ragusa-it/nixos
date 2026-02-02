@@ -1,0 +1,70 @@
+import started Sun Jan 25 12:23:20 2026
+skip /home/pinj/Music/Devil on My Shoulder.mp3
+skip /home/pinj/Music/Digits.mp3
+skip /home/pinj/Music/Dreams - 2004 Remaster.mp3
+skip /home/pinj/Music/Drugs N Hella Melodies (feat. Kali Uchis).mp3
+skip /home/pinj/Music/Dying Is a Beautiful Thing to Do.mp3
+skip /home/pinj/Music/Everything Has Changed (feat. Ed Sheeran) (Taylor’s Version).mp3
+skip /home/pinj/Music/Everywhere - 2017 Remaster.mp3
+skip /home/pinj/Music/Exchange.mp3
+skip /home/pinj/Music/Fallen - Electric.mp3
+skip /home/pinj/Music/FALLEN Part 2.mp3
+skip /home/pinj/Music/Far Away (feat. A$AP Rocky).mp3
+skip /home/pinj/Music/Faro de Luz.mp3
+skip /home/pinj/Music/FEAR..mp3
+skip /home/pinj/Music/Fiamme Alte.mp3
+skip /home/pinj/Music/For the First Time.mp3
+skip /home/pinj/Music/For What It's Worth.mp3
+skip /home/pinj/Music/Friend of the Devil.mp3
+skip /home/pinj/Music/Fuckthepopulation.mp3
+skip /home/pinj/Music/Funeral.mp3
+skip /home/pinj/Music/Geheim.mp3
+skip /home/pinj/Music/Girl With The Tattoo Enter.lewd.mp3
+skip /home/pinj/Music/Good Looking.mp3
+skip /home/pinj/Music/Goodbye.mp3
+skip /home/pinj/Music/Groove Constructor.mp3
+skip /home/pinj/Music/Gunz N Butter (feat. Juicy J).mp3
+skip /home/pinj/Music/Happiness is a butterfly.mp3
+skip /home/pinj/Music/Hell Of A Night.mp3
+skip /home/pinj/Music/Hell On Earth.mp3
+skip /home/pinj/Music/Here Comes The Sun - Remastered 2009.mp3
+skip /home/pinj/Music/Heroin.mp3
+skip /home/pinj/Music/Hooked On A Feeling.mp3
+skip /home/pinj/Music/hope is a dangerous thing for a woman like me to have - but I have it.mp3
+skip /home/pinj/Music/How to disappear.mp3
+skip /home/pinj/Music/I Don't Wanna Do This Anymore.mp3
+skip /home/pinj/Music/I Know The End.mp3
+skip /home/pinj/Music/I Know.mp3
+skip /home/pinj/Music/I Wanna Be Your Dog - 2019 Remaster.mp3
+skip /home/pinj/Music/I Will Always Think of You.mp3
+skip /home/pinj/Music/I'd Love to Change the World - 2004 Remaster.mp3
+skip /home/pinj/Music/I'm Only Sleeping - Remastered 2009.mp3
+skip /home/pinj/Music/Icon.mp3
+skip /home/pinj/Music/Icon? - Electric.mp3
+skip /home/pinj/Music/In My Room.mp3
+skip /home/pinj/Music/In the Mood.mp3
+skip /home/pinj/Music/Indecision.mp3
+skip /home/pinj/Music/Insane in the Brain.mp3
+skip /home/pinj/Music/Interlude.mp3
+skip /home/pinj/Music/invisible string.mp3
+skip /home/pinj/Music/It's A Man's, Man's, Man's World.mp3
+skip /home/pinj/Music/It's Funky Enough - Remastered Single.mp3
+skip /home/pinj/Music/ivy.mp3
+skip /home/pinj/Music/Jocelyn Flores.mp3
+skip /home/pinj/Music/King Of My Heart.mp3
+skip /home/pinj/Music/L to the OG (feat. Kendall Roy).mp3
+skip /home/pinj/Music/L'Estate (Summer) Op. 8 No. 2 in G minor: I. Allegro non molto.mp3
+skip /home/pinj/Music/La Villa Strangiato.mp3
+skip /home/pinj/Music/Last Words of a Shooting Star.mp3
+skip /home/pinj/Music/Little Wing.mp3
+skip /home/pinj/Music/Look At Me!.mp3
+skip /home/pinj/Music/Lost in the Fire.mp3
+skip /home/pinj/Music/Love Grows (Where My Rosemary Goes).mp3
+skip /home/pinj/Music/Love song.mp3
+skip /home/pinj/Music/Love Story - 2024 Remastered Version.mp3
+skip /home/pinj/Music/Love Thy Enemies.mp3
+skip /home/pinj/Music/Lover.mp3
+skip /home/pinj/Music/Lovers Rock.mp3
+skip /home/pinj/Music/Low Down.mp3
+skip /home/pinj/Music/Lucy In The Sky With Diamonds - Remastered 2009.mp3
+skip /home/pinj/Music/Mahogany.mp3
