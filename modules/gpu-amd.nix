@@ -10,33 +10,28 @@
 
     extraPackages = with pkgs; [
       # VA-API for hardware video acceleration
-      vaapiVdpau
+      libva-vdpau-driver  # Renamed from vaapiVdpau
       libvdpau-va-gl
 
-      # AMD-specific
-      amdvlk              # AMD's official Vulkan driver (alternative to RADV)
-      rocmPackages.clr.icd  # OpenCL support
+      # OpenCL support (optional, for compute workloads)
+      rocmPackages.clr.icd
     ];
 
     extraPackages32 = with pkgs.driversi686Linux; [
       # 32-bit VA-API support for older games
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
-      amdvlk
     ];
   };
 
-  # Use RADV (Mesa) as default Vulkan driver - generally better for gaming
-  # AMDVLK is available as fallback via VK_ICD_FILENAMES
-  environment.variables = {
-    AMD_VULKAN_ICD = "RADV";  # Use RADV by default
-  };
+  # RADV (Mesa Vulkan driver) is enabled by default and is the best choice for gaming
+  # No need for AMD_VULKAN_ICD environment variable anymore
 
   # CoreCtrl for fan curves, overclocking, and GPU monitoring
-  programs.corectrl = {
-    enable = true;
-    gpuOverclock.enable = true;  # Enable overclocking capabilities
-  };
+  programs.corectrl.enable = true;
+
+  # AMD GPU overdrive/overclocking support
+  hardware.amdgpu.overdrive.enable = true;
 
   # Add user to corectrl group for full access without password
   users.users.pinj.extraGroups = [ "corectrl" ];
