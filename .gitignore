@@ -1,0 +1,15 @@
+# Firefox profiles - contain sensitive data like cookies, history, passwords
+.config/mozilla/firefox/
+.config/zed/mozilla/
+
+# GitHub Copilot tokens
+.config/github-copilot/
+
+# Nix config (may contain access tokens)
+.config/nix/nix.conf
+
+# Other sensitive files
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite-journal

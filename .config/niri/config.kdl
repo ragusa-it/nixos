@@ -1,14 +1,12 @@
 // Niri configuration for CachyOS
 // For documentation and full reference, see: https://github.com/YaLTeR/niri/wiki
 
-// ────────────── Cursor Configuration ──────────────
-cursor {
-    xcursor-theme "Adwaita"
-    xcursor-size 24
-}
-
 // ────────────── Input Configuration ──────────────
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Input
+cursor {
+	xcursor-theme "Adwaita"
+	xcursor-size 24
+}
 
 input {
     keyboard {
@@ -62,7 +60,7 @@ binds {
 
     // ─── Applications ───
     Mod+T                               hotkey-overlay-title="Open Terminal: ghostty" { spawn "ghostty"; }
-    Mod+B                               hotkey-overlay-title="Open Browser: Zen" { spawn "zen-browser"; }
+    Mod+B                               hotkey-overlay-title="Open Browser: Zen" { spawn "zen"; }
     Mod+E                               hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
     Mod+Space repeat=false              hotkey-overlay-title="Open App Launcher" { spawn "vicinae" "toggle"; }
     // Mod+G                            hotkey-overlay-title="Open Google Gemini" { spawn "chromium" "--app=https://gemini.google.com"; }
@@ -192,6 +190,7 @@ binds {
 
     // Note: On NixOS, polkit agent is started via systemd user service (see desktop.nix)
     // spawn-sh-at-startup "polkit-gnome-authentication-agent-1 &"
+    spawn-at-startup "noctalia-shell"
     spawn-sh-at-startup "sleep 2 && vicinae server"
     spawn-at-startup "xwayland-satellite"
     
@@ -334,9 +333,7 @@ binds {
         XDG_SESSION_TYPE "wayland"
         XDG_CURRENT_DESKTOP "niri"
         QS_ICON_THEME "Papirus-Dark"
-        GTK_THEME "adw-gtk3-dark"
         XCURSOR_THEME "Adwaita"
-        XCURSOR_SIZE "24"
     }
 
     hotkey-overlay {

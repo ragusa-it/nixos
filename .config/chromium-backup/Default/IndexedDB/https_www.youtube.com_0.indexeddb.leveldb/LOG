@@ -1,0 +1,5 @@
+2026/02/01-23:27:13.458 10ee Reusing MANIFEST /home/pinj/.config/chromium/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/01-23:27:13.458 10ee Recovering log #18
+2026/02/01-23:27:13.459 10ee Reusing old log /home/pinj/.config/chromium/Default/IndexedDB/https_www.youtube.com_0.indexeddb.leveldb/000018.log 
+2026/02/01-23:27:13.459 10ee Delete type=2 #17
+2026/02/01-23:27:13.459 10ee Delete type=2 #14
