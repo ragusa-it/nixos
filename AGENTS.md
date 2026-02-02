@@ -1,110 +1,167 @@
-# AGENTS.md - NixOS Configuration Repository
+# AGENTS.md - NixOS Configuration Guidelines
 
-## 1. Project Context
-This is a **NixOS Flake configuration** for a personal desktop system (hostname: `nix`, user: `pinj`).
-It relies on modern Nix features (Flakes, experimental commands) and a modular architecture.
+Guidelines for AI agents working with this NixOS flake-based configuration.
 
-## 2. Build & Validation Commands
+## Project Overview
 
-### Core Workflows
-Use these commands to verify your changes. **Always run the test command before asking the user to switch.**
+Modular NixOS configuration for a desktop workstation using Nix flakes.
+
+**Tech Stack:** NixOS, Nix Flakes, Fish shell, Wayland (Niri), AMD GPU
+
+## Repository Structure
+
+```
+nixos/
+├── flake.nix                 # Flake inputs and outputs
+├── configuration.nix         # Main config (imports all modules)
+├── hardware-configuration.nix # Auto-generated (don't edit)
+└── modules/
+    ├── apps.nix              # User applications
+    ├── desktop.nix           # Wayland, portals, polkit
+    ├── dev.nix               # Docker, dev tools, languages
+    ├── gaming.nix            # Steam, Gamemode, Wine
+    ├── gpu-amd.nix           # AMD GPU drivers
+    ├── shell.nix             # Fish shell config
+    ├── theming.nix           # Fonts, themes, cursors
+    └── ...                   # Other modules
+```
+
+## Build Commands
 
 ```bash
-# 1. SYNTAX CHECK (Fastest)
-# Checks for basic syntax errors without evaluating the entire system
-nix-instantiate --parse configuration.nix
+# Test configuration without switching (recommended first)
+sudo nixos-rebuild test --flake .#nixos
 
-# 2. FLAKE CHECK (Unit Tests)
-# Validates flake structure and evaluates outputs. Use this to ensure no regression.
+# Switch to new configuration
+sudo nixos-rebuild switch --flake .#nixos
+
+# Quick syntax validation
 nix flake check
 
-# 3. DRY RUN (Integration Test)
-# Builds the system and tries to activate it in a VM or checks for conflicts 
-# without modifying the bootloader or switching the current system.
-sudo nixos-rebuild test --flake .#nixos
-```
-
-### Deployment
-Only run these when explicitly requested by the user:
-
-```bash
-# Build (create derivation but don't switch)
-sudo nixos-rebuild build --flake .#nixos
-
-# Switch (apply changes to live system)
-sudo nixos-rebuild switch --flake .#nixos
-```
-
-### Maintenance
-```bash
-# Update inputs (e.g. nixpkgs)
+# Update all flake inputs
 nix flake update
 
-# Format all nix files
-nixfmt *.nix modules/*.nix
+# Garbage collection
+sudo nix-collect-garbage --delete-older-than 14d
 ```
 
-## 3. Code Style & Conventions
+## Code Style Guidelines
 
-### Visual Structure
-Maintain the project's visual hierarchy. Use decorative comments to separate major sections.
+### File Structure
+
+Each module follows this pattern:
 
 ```nix
-# ═══════════════════════════════════════════════════════════════
-# SECTION NAME (UPPERCASE)
-# ═══════════════════════════════════════════════════════════════
+# modules/example.nix
+# Brief description of what this module does
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+{
+  # Module content here
+}
 ```
 
-### Nix Formatting
-- **Indentation:** 2 spaces.
-- **Lists:** Use `with pkgs; [ ... ]` for package lists to reduce verbosity.
-- **Line Length:** Soft limit 100 chars, hard limit 120.
-- **Functions:** Use standard module arguments: `{ config, pkgs, lib, ... }:`.
+### Formatting
 
-### Module Pattern
-All functionality should be modularized in `./modules/`.
-- **Filename:** `kebab-case.nix` (e.g., `gpu-amd.nix`).
-- **Structure:**
-  ```nix
-  { config, pkgs, lib, ... }: {
-    # Options
-    programs.foo.enable = true;
+- **Formatter**: `nixfmt`
+- **Indentation**: 2 spaces (no tabs)
+- **Line length**: ~100 chars, break long lists
 
-    # Packages
-    environment.systemPackages = with pkgs; [
-      foo-pkg
-    ];
-  }
-  ```
+### Naming Conventions
 
-### Naming & Variables
-- **Inputs:** Reference flake inputs via `inputs.name` (passed via `specialArgs`).
-- **Packages:** Use `pkgs.packageName`.
-- **User:** The primary user `pinj` is defined in `configuration.nix`.
-- **Groups:** Add user to groups via `extraGroups` in specific modules (e.g., `docker` group in `dev.nix`).
+- **Files**: `kebab-case.nix` (e.g., `gpu-amd.nix`)
+- **Options**: NixOS convention, camelCase (e.g., `extraGroups`)
 
-## 4. Agent Guidelines
+### Comments & Headers
 
-### ⚠️ Critical Safety Rules
-1.  **Secrets:** NEVER commit secrets (tokens, keys, passwords). Check `.gitignore`.
-2.  **Hardware Config:** Do NOT modify `hardware-configuration.nix` unless explicitly checking for new drives/mounts. It is auto-generated.
-3.  **State Version:** Do NOT change `system.stateVersion` ("26.05").
+- Major sections: `# ═══ SECTION NAME ═══` (full line of `═`)
+- Subsections: `# ─── Subsection ───` (full line of `─`)
+- Inline comments for non-obvious settings
 
-### Navigation & Editing
-- **Absolute Paths:** When using tools, always resolve paths fully (e.g., `/home/pinj/nixos/modules/dev.nix`).
-- **Read First:** Always read `configuration.nix` to see active imports before creating new modules.
-- **Search:** Use `grep` to find where existing programs are configured (e.g., `grep -r "firefox" .`).
+### Package Lists & Attribute Sets
 
-### Troubleshooting Common Errors
-- **"Option does not exist":** You might be missing an import in `configuration.nix` or using a home-manager option in a system module.
-- **"Hash mismatch":** If updating a `fetchurl` or flake input, ensure hashes are updated.
-- **"ReadOnly":** You cannot edit files in the `/nix/store`. Only edit files in `/home/pinj/nixos`.
+```nix
+environment.systemPackages = with pkgs; [
+  # Category header
+  package1
+  package2
+];
 
-## 5. Directory Structure
+# Short sets inline: { enable = true; }
+# Multi-line with indentation:
+services.example = {
+  enable = true;
+  settings.Option = "value";
+};
+```
 
-| Path | Purpose |
-|------|---------|
-| `flake.nix` | Entry point, dependencies (inputs), and outputs. |
-| `configuration.nix` | System glue. Imports modules, sets defaults, defines user. |
-| `modules/` | Feature-specific configs (desktop, dev, gaming, etc.). |
-| `hardware-configuration.nix` | Hardware scan (do not edit manually). |
+## Important Notes
+
+1. **hardware-configuration.nix**: Auto-generated, never edit manually
+2. **Username**: `pinj` - used throughout the config
+3. **User groups**: Distributed across modules via `users.users.pinj.extraGroups`
+4. **GUI apps**: Managed via `nix profile`, not system packages
+5. **Unfree packages**: Enabled in `configuration.nix`
+6. **State version**: `26.05` - don't change unless migrating
+
+## Flake Inputs
+
+| Input | Purpose |
+|-------|---------|
+| `nixpkgs` | NixOS unstable channel |
+| `nix-cachyos-kernel` | CachyOS optimized kernel |
+| `noctalia` | Desktop shell |
+| `vicinae` | Application launcher |
+
+## Common Patterns
+
+### Adding a New Module
+
+1. Create `modules/newmodule.nix` with standard header
+2. Add import to `configuration.nix`
+3. Test with `sudo nixos-rebuild test --flake .#nixos`
+
+### Adding System Packages
+
+Add to the relevant module's `environment.systemPackages`:
+```nix
+environment.systemPackages = with pkgs; [
+  newpackage
+];
+```
+
+### Adding User to Group
+
+```nix
+users.users.pinj.extraGroups = [ "groupname" ];
+```
+
+### Using Flake Inputs
+
+```nix
+# Add inputs to module arguments
+{ config, pkgs, inputs, lib, ... }:
+
+{
+  environment.systemPackages = [
+    inputs.flakename.packages.${pkgs.system}.default
+  ];
+}
+```
+
+### Adding User GUI Apps
+
+```bash
+nix profile install nixpkgs#packagename
+```
+
+## Error Handling
+
+- NixOS fails builds on errors - this is the primary validation
+- Always test with `nixos-rebuild test` before `switch`
+- Use `nix flake check` for quick syntax validation
