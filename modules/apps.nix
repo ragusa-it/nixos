@@ -40,7 +40,8 @@
   # Enable Flatpak for additional apps (Feishin, etc.)
   services.flatpak.enable = true;
 
-  # Add Flathub repository automatically on activation
-  # Run manually after first boot: flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  # Then install Feishin: flatpak install flathub io.github.feishin.feishin
+  # Automatically add Flathub repository on system activation
+  system.activationScripts.flatpak-flathub.text = ''
+    ${pkgs.flatpak}/bin/flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo || true
+  '';
 }

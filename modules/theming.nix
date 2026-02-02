@@ -80,19 +80,10 @@
   ];
 
   # ─────────────────────────────────────────────────────────────
-  # Environment Variables for Theming
+  # Cursor and Icon Paths
   # ─────────────────────────────────────────────────────────────
-  environment.sessionVariables = {
-    # Qt platform integration
-    QT_QPA_PLATFORMTHEME = "qt6ct";
-
-    # GTK theme (for apps that don't read dconf)
-    GTK_THEME = "adw-gtk3-dark";
-
-    # Cursor theme
-    XCURSOR_THEME = "Adwaita";
-    XCURSOR_SIZE = "24";
-  };
+  # NOTE: Session variables (GTK_THEME, XCURSOR_*, QT_QPA_PLATFORMTHEME)
+  # are consolidated in desktop.nix
 
   # Ensure cursor themes are found
   environment.pathsToLink = [ "/share/icons" ];

@@ -4,6 +4,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }:
 
@@ -71,5 +72,5 @@
   ];
 
   # Add user to gamemode group
-  users.users.pinj.extraGroups = [ "gamemode" ];
+  users.users.${username}.extraGroups = [ "gamemode" ];
 }

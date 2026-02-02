@@ -4,6 +4,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }:
 
@@ -51,7 +52,7 @@
   # ═══════════════════════════════════════════════════════════════
   # USER PERMISSIONS
   # ═══════════════════════════════════════════════════════════════
-  users.users.pinj.extraGroups = [ "libvirtd" ];
+  users.users.${username}.extraGroups = [ "libvirtd" ];
 
   # ═══════════════════════════════════════════════════════════════
   # DCONF SETTINGS FOR VIRT-MANAGER

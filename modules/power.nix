@@ -28,12 +28,5 @@
     power-profiles-daemon # Already enabled as service, CLI tool for control
   ];
 
-  # ═══════════════════════════════════════════════════════════════
-  # KERNEL PARAMETERS FOR POWER EFFICIENCY
-  # ═══════════════════════════════════════════════════════════════
-  # These help reduce power draw on idle desktop systems
-  boot.kernelParams = [
-    # Enable AMD P-State driver for modern Ryzen CPUs
-    "amd_pstate=active"
-  ];
+  # NOTE: Kernel params (amd_pstate) are in configuration.nix
 }

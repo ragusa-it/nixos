@@ -4,6 +4,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }:
 
@@ -39,13 +40,9 @@
   hardware.amdgpu.overdrive.enable = true;
 
   # Add user to corectrl group for full access without password
-  users.users.pinj.extraGroups = [ "corectrl" ];
+  users.users.${username}.extraGroups = [ "corectrl" ];
 
-  # Kernel parameters for AMD GPU
-  boot.kernelParams = [
-    # Enable all power management features
-    "amdgpu.ppfeaturemask=0xffffffff"
-  ];
+  # NOTE: Kernel params (amdgpu.ppfeaturemask) are in configuration.nix
 
   # GPU monitoring tools
   environment.systemPackages = with pkgs; [

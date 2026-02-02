@@ -42,11 +42,14 @@
     inputs@{ self, nixpkgs, ... }:
     let
       system = "x86_64-linux";
+      username = "pinj"; # Single source of truth for username
     in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs username;
+        };
         modules = [
           ./configuration.nix
           { nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ]; }

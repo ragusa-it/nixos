@@ -73,10 +73,13 @@
     # XDG
     XDG_SESSION_TYPE = "wayland";
     XDG_CURRENT_DESKTOP = "niri";
-  };
 
-  # Enable dconf for GTK settings
-  programs.dconf.enable = true;
+    # Theming (consolidated from theming.nix)
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+    GTK_THEME = "adw-gtk3-dark";
+    XCURSOR_THEME = "Adwaita";
+    XCURSOR_SIZE = "24";
+  };
 
   # GNOME services for better desktop integration
   services.gvfs.enable = true; # Virtual filesystem (trash, MTP, SMB)

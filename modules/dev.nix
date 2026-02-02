@@ -4,6 +4,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }:
 
@@ -21,7 +22,7 @@
   };
 
   # Add user to docker group
-  users.users.pinj.extraGroups = [ "docker" ];
+  users.users.${username}.extraGroups = [ "docker" ];
 
   # Direnv for per-project environments
   programs.direnv = {

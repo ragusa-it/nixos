@@ -5,6 +5,7 @@
   pkgs,
   inputs,
   lib,
+  username,
   ...
 }:
 
@@ -34,6 +35,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v3;
+
+  # Kernel parameters (consolidated from modules)
+  boot.kernelParams = [
+    "amd_pstate=active" # Modern Ryzen power management (from power.nix)
+    "amdgpu.ppfeaturemask=0xffffffff" # Full AMD GPU power features (from gpu-amd.nix)
+  ];
 
   # sched-ext scheduler for gaming performance
   services.scx.enable = true;
@@ -116,7 +123,7 @@
   # ═══════════════════════════════════════════════════════════════
   # USER
   # ═══════════════════════════════════════════════════════════════
-  users.users.pinj = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Melvin Ragusa";
     extraGroups = [

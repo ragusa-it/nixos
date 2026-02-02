@@ -4,6 +4,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }:
 
@@ -16,10 +17,11 @@
 
     settings = {
       # Music library location
-      MusicFolder = "/home/pinj/Music";
+      MusicFolder = "/home/${username}/Music";
 
       # Server settings
-      Address = "0.0.0.0";
+      # Bind to localhost only - access via Tailscale if needed remotely
+      Address = "127.0.0.1";
       Port = 4533;
 
       # UI settings
@@ -48,12 +50,12 @@
     };
   };
 
-  # Open firewall for Navidrome
-  # Remove or comment out if you only access locally
-  networking.firewall.allowedTCPPorts = [ 4533 ];
+  # Firewall not needed - Navidrome binds to localhost only
+  # Uncomment if you need network access:
+  # networking.firewall.allowedTCPPorts = [ 4533 ];
 
   # Ensure music directory exists and has correct permissions
   systemd.tmpfiles.rules = [
-    "d /home/pinj/Music 0755 pinj users -"
+    "d /home/${username}/Music 0755 ${username} users -"
   ];
 }
