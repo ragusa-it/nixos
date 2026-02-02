@@ -1,35 +1,41 @@
-#configuration.nix
-{ config, pkgs, inputs, ... }:
+# configuration.nix
+# Main NixOS configuration - imports modular components
+{ config, pkgs, inputs, lib, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Hardware
+    ./hardware-configuration.nix
 
-  # Bootloader.
+    # Modular configuration
+    ./modules/desktop.nix     # Portal, polkit, launcher, lock, wallpaper
+    ./modules/gpu-amd.nix     # AMD graphics, Vulkan, VA-API
+    ./modules/audio.nix       # Bluetooth, audio controls
+    ./modules/gaming.nix      # Steam, Gamemode, Lutris, etc.
+    ./modules/apps.nix        # User applications
+    ./modules/dev.nix         # Docker, dev tools
+    ./modules/theming.nix     # Fonts, themes, cursors
+  ];
+
+  # ═══════════════════════════════════════════════════════════════
+  # BOOT
+  # ═══════════════════════════════════════════════════════════════
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "atlas"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
+  # ═══════════════════════════════════════════════════════════════
+  # NETWORKING
+  # ═══════════════════════════════════════════════════════════════
+  networking.hostName = "atlas";
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+  # ═══════════════════════════════════════════════════════════════
+  # LOCALIZATION
+  # ═══════════════════════════════════════════════════════════════
   time.timeZone = "Europe/Berlin";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "de_DE.UTF-8";
     LC_IDENTIFICATION = "de_DE.UTF-8";
@@ -42,30 +48,23 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable the X11 windowing system (needed for some apps and Ly X11 support).
-  services.xserver.enable = true;
+  console.keyMap = "de-latin1-nodeadkeys";
 
-  # Use Ly as the display manager.
+  # ═══════════════════════════════════════════════════════════════
+  # DISPLAY & INPUT
+  # ═══════════════════════════════════════════════════════════════
+  services.xserver.enable = true;
   services.displayManager.ly.enable = true;
   services.displayManager.defaultSession = "niri";
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "de";
     variant = "nodeadkeys";
   };
 
-  # Configure console keymap
-  console.keyMap = "de-latin1-nodeadkeys";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-
-  # Enable sound with pipewire.
+  # ═══════════════════════════════════════════════════════════════
+  # AUDIO (PipeWire)
+  # ═══════════════════════════════════════════════════════════════
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -73,84 +72,112 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    jack.enable = true;  # For pro audio apps
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # ═══════════════════════════════════════════════════════════════
+  # BLUETOOTH
+  # ═══════════════════════════════════════════════════════════════
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # ═══════════════════════════════════════════════════════════════
+  # PRINTING
+  # ═══════════════════════════════════════════════════════════════
+  services.printing.enable = true;
+
+  # ═══════════════════════════════════════════════════════════════
+  # USER
+  # ═══════════════════════════════════════════════════════════════
   users.users.pinj = {
     isNormalUser = true;
     description = "Melvin Ragusa";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
+    extraGroups = [
+      "wheel"           # Sudo access
+      "networkmanager"  # Network configuration
+      # Additional groups are added by modules:
+      # - docker (dev.nix)
+      # - gamemode (gaming.nix)
+      # - corectrl (gpu-amd.nix)
     ];
+    shell = pkgs.zsh;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  # ═══════════════════════════════════════════════════════════════
+  # PROGRAMS
+  # ═══════════════════════════════════════════════════════════════
+  programs.zsh.enable = true;
   programs.yazi.enable = true;
   programs.firefox.enable = true;
   programs.niri.enable = true;
-  programs.zsh.enable = true;
-  users.users.pinj.shell = pkgs.zsh;
 
-  # Allow unfree packages
+  # ═══════════════════════════════════════════════════════════════
+  # NIX SETTINGS
+  # ═══════════════════════════════════════════════════════════════
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+
+    # Optimize storage
+    auto-optimise-store = true;
+
+    # Trust users for substituters
+    trusted-users = [ "root" "@wheel" ];
+  };
+
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # ═══════════════════════════════════════════════════════════════
+  # SYSTEM PACKAGES (Base essentials)
+  # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
+    # Core utilities
     fastfetch
-    nil
     micro
+    wget
+    curl
+
+    # Nix tools
+    nil               # Nix LSP
+
+    # Wayland
     xwayland-satellite
     grim
     slurp
-    wl-clipboard
-    git
-    gh
+
+    # File management
     nautilus
+
+    # Editors
     zed-editor
+
+    # Flake inputs
     inputs.noctalia.packages.${pkgs.system}.default
     inputs.zen-browser.packages.${pkgs.system}.default
     inputs.ghostty.packages.${pkgs.system}.default
     inputs.opencode.packages.${pkgs.system}.default
+
+    # AI coding
     claude-code
+
+    # Package managers
     pnpm
   ];
 
-  # Fonts
-  fonts.packages = with pkgs; [
-    jetbrains-mono
-    nerd-fonts.jetbrains-mono
-  ];
-
-  fonts.fontconfig.enable = true;
-
-  # List services that you want to enable:
+  # ═══════════════════════════════════════════════════════════════
+  # SERVICES
+  # ═══════════════════════════════════════════════════════════════
   services.openssh.enable = true;
   services.tailscale.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # ═══════════════════════════════════════════════════════════════
+  # SYSTEM
+  # ═══════════════════════════════════════════════════════════════
   system.stateVersion = "25.11";
-
 }

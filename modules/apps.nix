@@ -1,0 +1,78 @@
+# modules/apps.nix
+# User applications: media, productivity, communication, system utilities
+{ config, pkgs, lib, ... }:
+
+{
+  environment.systemPackages = with pkgs; [
+    # ─────────────────────────────────────────────────────────────
+    # Media Viewers
+    # ─────────────────────────────────────────────────────────────
+    loupe               # GNOME image viewer
+    evince              # PDF/document viewer
+    celluloid           # MPV frontend (GTK video player)
+    mpv                 # Powerful CLI video player
+
+    # ─────────────────────────────────────────────────────────────
+    # Music
+    # ─────────────────────────────────────────────────────────────
+    amberol             # Simple music player for local files
+    # Feishin available via Flatpak for Navidrome/Jellyfin
+
+    # ─────────────────────────────────────────────────────────────
+    # Communication
+    # ─────────────────────────────────────────────────────────────
+    vesktop             # Discord client (Wayland-native, with Vencord)
+    thunderbird         # Email client
+
+    # ─────────────────────────────────────────────────────────────
+    # Office & Productivity
+    # ─────────────────────────────────────────────────────────────
+    libreoffice-fresh   # Office suite (latest)
+    obsidian            # Note-taking with Markdown
+
+    # ─────────────────────────────────────────────────────────────
+    # System Utilities
+    # ─────────────────────────────────────────────────────────────
+    btop                # Modern system monitor (terminal)
+    mission-center      # GNOME system monitor (GUI, like Windows Task Manager)
+    
+    # File management
+    file-roller         # Archive manager (GUI)
+    gnome-disk-utility  # Disk management
+
+    # Archive tools (for file-roller and CLI)
+    unzip
+    zip
+    p7zip
+    unrar
+
+    # ─────────────────────────────────────────────────────────────
+    # Screenshots
+    # ─────────────────────────────────────────────────────────────
+    swappy              # Screenshot annotation tool
+    # grim + slurp already in your base config
+
+    # ─────────────────────────────────────────────────────────────
+    # Security & Passwords
+    # ─────────────────────────────────────────────────────────────
+    bitwarden-desktop   # Password manager
+    seahorse            # GNOME Keyring GUI
+
+    # ─────────────────────────────────────────────────────────────
+    # Utilities
+    # ─────────────────────────────────────────────────────────────
+    gnome-calculator    # Calculator
+    gnome-clocks        # World clocks, alarms, timers
+    baobab              # Disk usage analyzer
+  ];
+
+  # GNOME Keyring for secrets storage
+  services.gnome.gnome-keyring.enable = true;
+
+  # Enable Flatpak for additional apps (Feishin, etc.)
+  services.flatpak.enable = true;
+
+  # Add Flathub repository automatically on activation
+  # Run manually after first boot: flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  # Then install Feishin: flatpak install flathub io.github.feishin.feishin
+}
