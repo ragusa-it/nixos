@@ -60,6 +60,7 @@
     git
     gh # GitHub CLI
     delta # Better git diff
+    lazygit # Git UI
 
     # ─────────────────────────────────────────────────────────────
     # Editors & LSP
@@ -77,6 +78,7 @@
     fzf # Fuzzy finder
     eza # Modern ls
     bat # Cat with syntax highlighting
+    broot
 
     # Additional CLI tools
     tealdeer # tldr - simplified man pages

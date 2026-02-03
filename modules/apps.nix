@@ -37,7 +37,7 @@
     # ─────────────────────────────────────────────────────────────
     # Office & Productivity
     # ─────────────────────────────────────────────────────────────
-    libreoffice-fresh # Office suite (latest)
+    onlyoffice-desktopeditors # Office suite (latest)
     obsidian # Note-taking with Markdown
 
     # ─────────────────────────────────────────────────────────────

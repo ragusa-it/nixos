@@ -24,7 +24,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd"; # Best compression ratio
-    memoryPercent = 50; # Use up to 50% of RAM for compressed swap
+    memoryPercent = 100; # Use up to 50% of RAM for compressed swap
   };
 
   # ═══════════════════════════════════════════════════════════════
