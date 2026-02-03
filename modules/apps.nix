@@ -16,11 +16,11 @@
     evince # PDF/document viewer
     celluloid # MPV frontend (GTK video player)
     mpv # Powerful CLI video player
+    vlc
 
     # ═══════════════════════════════════════════════════════════════
     # MUSIC
     # ═══════════════════════════════════════════════════════════════
-    amberol # Simple music player for local files
     feishin # Navidrome/Jellyfin client
     picard # MusicBrainz Picard - music tagger
     beets # Music library manager
@@ -66,7 +66,6 @@
     # Screen recording
     obs-studio # Full-featured streaming/recording suite
     gpu-screen-recorder # Lightweight GPU-accelerated recorder (AMD/NVIDIA/Intel)
-    kooha # Simple GNOME-style screen recorder
 
     # ═══════════════════════════════════════════════════════════════
     # SECURITY & PASSWORDS

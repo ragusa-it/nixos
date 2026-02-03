@@ -27,9 +27,6 @@
     # Media player control
     playerctl # Control media players via D-Bus (for media keys)
 
-    # Audio tools
-    easyeffects # Audio effects and equalizer for PipeWire
-
     # Bluetooth audio codecs are handled by PipeWire automatically
   ];
 
