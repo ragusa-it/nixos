@@ -210,6 +210,7 @@
   # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
     # Core utilities
+    gnupg
     fastfetch
     micro
     wget
