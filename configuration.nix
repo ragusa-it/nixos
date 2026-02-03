@@ -36,7 +36,7 @@
   # ─── Bootloader: Limine with Secure Boot ───
   boot.loader.systemd-boot.enable = false; # Disabled - using Limine
   boot.loader.limine.enable = true;
-  boot.loader.limine.secureBoot.enable = false;
+  boot.loader.limine.secureBoot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # ─── Kernel ───
