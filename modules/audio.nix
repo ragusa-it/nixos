@@ -1,5 +1,5 @@
 # modules/audio.nix
-# Audio and Bluetooth configuration: Blueman GUI, volume control, media keys
+# Audio and Bluetooth configuration: volume control, media keys
 {
   config,
   pkgs,
@@ -9,20 +9,12 @@
 
 {
   # ═══════════════════════════════════════════════════════════════
-  # BLUETOOTH
-  # ═══════════════════════════════════════════════════════════════
-  # Bluetooth GUI management
-  services.blueman.enable = true;
-
-  # ═══════════════════════════════════════════════════════════════
   # AUDIO PACKAGES
   # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
     # PipeWire volume control
     pwvucontrol # Modern PipeWire volume control (Qt)
     pavucontrol # Classic PulseAudio volume control (GTK) - as backup
-    helvum # PipeWire patchbay for routing audio
-    qpwgraph # PipeWire graph editor (visual audio routing)
 
     # Media player control
     playerctl # Control media players via D-Bus (for media keys)
