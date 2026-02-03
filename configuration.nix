@@ -32,8 +32,14 @@
   # ═══════════════════════════════════════════════════════════════
   # BOOT
   # ═══════════════════════════════════════════════════════════════
-  boot.loader.systemd-boot.enable = true;
+
+  # ─── Bootloader: Limine with Secure Boot ───
+  boot.loader.systemd-boot.enable = false; # Disabled - using Limine
+  boot.loader.limine.enable = true;
+  boot.loader.limine.secureBoot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # ─── Kernel ───
   boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v3;
 
   # Kernel parameters (consolidated from modules)
@@ -42,6 +48,28 @@
     "amdgpu.ppfeaturemask=0xffffffff" # Full AMD GPU power features (from gpu-amd.nix)
   ];
 
+  # ─── Full Disk Encryption (LUKS) ───
+  boot.initrd.luks.devices = {
+    "cryptroot" = {
+      device = "/dev/disk/by-label/cryptroot";
+      allowDiscards = true; # Enable TRIM for SSD performance
+    };
+    "cryptswap" = {
+      device = "/dev/disk/by-label/cryptswap";
+      allowDiscards = true;
+      keyFile = "/swap.key"; # Auto-unlock with keyfile after root is decrypted
+    };
+  };
+
+  # Include swap keyfile in initrd (encrypted, only accessible during boot)
+  boot.initrd.secrets = {
+    "/swap.key" = /var/lib/secrets/swap.key;
+  };
+
+  # ─── Hibernation ───
+  boot.resumeDevice = "/dev/mapper/cryptswap";
+
+  # ─── Scheduler ───
   # sched-ext scheduler for gaming performance
   services.scx.enable = true;
   services.scx.scheduler = "scx_lavd"; # Low-latency scheduler, good for gaming
@@ -183,6 +211,9 @@
     micro
     wget
     curl
+
+    # Secure Boot management
+    sbctl
 
     # Nix tools
     nil # Nix LSP
