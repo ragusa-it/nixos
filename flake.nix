@@ -16,7 +16,6 @@
     # Application launcher
     vicinae = {
       url = "github:vicinaehq/vicinae";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Kernel
