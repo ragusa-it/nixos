@@ -19,9 +19,17 @@
     # Kernel
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
-    # NOTE: GUI apps (zen-browser, opencode) are now managed via `nix profile`
-    # Install with: nix profile install github:youwen5/zen-browser-flake
-    #               nix profile install github:anomalyco/opencode
+    # Browser
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # AI coding assistant
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # Binary caches for faster builds
