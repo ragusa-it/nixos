@@ -48,23 +48,6 @@
     "amdgpu.ppfeaturemask=0xffffffff" # Full AMD GPU power features (from gpu-amd.nix)
   ];
 
- # ─── Full Disk Encryption (LUKS) ───
-  boot.initrd.luks.devices = {
-    "cryptswap" = {
-      device = "/dev/mapper/cryptswap";
-      allowDiscards = true;
-      keyFile = "/swap.key"; # Auto-unlock with keyfile after root is decrypted
-    };
-  };
-
-  # Include swap keyfile in initrd (encrypted, only accessible during boot)
-  boot.initrd.secrets = {
-    "/swap.key" = /var/lib/secrets/swap.key;
-  };
-
-  # ─── Hibernation ───
-  boot.resumeDevice = "/dev/mapper/cryptswap";
-
   # ─── Scheduler ───
   # sched-ext scheduler for gaming performance
   services.scx.enable = true;
