@@ -97,7 +97,8 @@ echo ""
 echo "─── Step 5: Rebuilding NixOS to sign bootloader and kernel ───"
 echo ""
 
-nixos-rebuild switch --flake ~/nixos#nixos
+FLAKE_DIR="/home/pinj/nixos"
+nixos-rebuild switch --flake "${FLAKE_DIR}#nixos"
 
 echo ""
 echo "NixOS rebuilt with signed binaries."
