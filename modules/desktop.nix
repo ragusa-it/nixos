@@ -9,14 +9,20 @@
 }:
 
 {
-  # XDG Portal - Required for screen sharing, file pickers, etc.
+  # ═══════════════════════════════════════════════════════════════
+  # XDG PORTALS
+  # ═══════════════════════════════════════════════════════════════
+  # Required for screen sharing, file pickers, etc.
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     config.common.default = "*";
   };
 
-  # Polkit - GUI privilege escalation
+  # ═══════════════════════════════════════════════════════════════
+  # POLKIT
+  # ═══════════════════════════════════════════════════════════════
+  # GUI privilege escalation
   security.polkit.enable = true;
 
   # Polkit authentication agent (runs on login)
@@ -34,7 +40,9 @@
     };
   };
 
-  # Desktop packages
+  # ═══════════════════════════════════════════════════════════════
+  # DESKTOP PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
     # Vicinae launcher
     inputs.vicinae.packages.${pkgs.system}.default
@@ -52,15 +60,16 @@
     wlr-randr # Display configuration
     wayland-utils # Debug utilities
 
-    # ─────────────────────────────────────────────────────────────
-    # Additional desktop utilities (migrated from Arch)
-    # ─────────────────────────────────────────────────────────────
+    # ─── Additional Desktop Utilities ───
     cliphist # Clipboard history for Wayland
     wlsunset # Blue light filter / night mode
     brightnessctl # Brightness control (even for desktop monitors via DDC)
     wlogout # Logout menu / session manager
   ];
 
+  # ═══════════════════════════════════════════════════════════════
+  # WAYLAND ENVIRONMENT
+  # ═══════════════════════════════════════════════════════════════
   # Environment variables for Wayland compatibility
   environment.sessionVariables = {
     # Wayland defaults
@@ -81,7 +90,10 @@
     XCURSOR_SIZE = "24";
   };
 
-  # GNOME services for better desktop integration
+  # ═══════════════════════════════════════════════════════════════
+  # GNOME SERVICES
+  # ═══════════════════════════════════════════════════════════════
+  # Better desktop integration
   services.gvfs.enable = true; # Virtual filesystem (trash, MTP, SMB)
   services.udisks2.enable = true; # Disk mounting
 }

@@ -9,6 +9,9 @@
 }:
 
 {
+  # ═══════════════════════════════════════════════════════════════
+  # AMD GPU DRIVERS
+  # ═══════════════════════════════════════════════════════════════
   # Enable OpenGL/Vulkan
   hardware.graphics = {
     enable = true;
@@ -33,7 +36,10 @@
   # RADV (Mesa Vulkan driver) is enabled by default and is the best choice for gaming
   # No need for AMD_VULKAN_ICD environment variable anymore
 
-  # CoreCtrl for fan curves, overclocking, and GPU monitoring
+  # ═══════════════════════════════════════════════════════════════
+  # CORECTRL
+  # ═══════════════════════════════════════════════════════════════
+  # Fan curves, overclocking, and GPU monitoring
   programs.corectrl.enable = true;
 
   # AMD GPU overdrive/overclocking support
@@ -44,17 +50,19 @@
 
   # NOTE: Kernel params (amdgpu.ppfeaturemask) are in configuration.nix
 
-  # GPU monitoring tools
+  # ═══════════════════════════════════════════════════════════════
+  # GPU PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
-    # Monitoring
+    # ─── Monitoring ───
     radeontop # AMD GPU monitoring (like nvidia-smi)
     nvtopPackages.amd # Modern GPU monitor with AMD support
 
-    # Vulkan tools
+    # ─── Vulkan Tools ───
     vulkan-tools # vulkaninfo, etc.
     vulkan-loader
 
-    # Video acceleration verification
+    # ─── Video Acceleration ───
     libva-utils # vainfo - verify VA-API
     vdpauinfo # Verify VDPAU
   ];

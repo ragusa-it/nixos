@@ -47,7 +47,7 @@ All feature configurations live in `modules/` as standalone NixOS modules:
 - `services.nix` - fstrim, zram, avahi, profile-sync-daemon, earlyoom
 - `audio.nix`, `theming.nix`, `power.nix`, `virtualization.nix`, `navidrome.nix`, `apps.nix`
 
-Each module follows the pattern: `{ config, pkgs, lib, ... }: { ... }`
+Each module follows the pattern: `{ config, pkgs, lib, ... }:`
 
 **Package Management Philosophy:**
 - System packages (`environment.systemPackages`): Services, hardware support, desktop infrastructure, build tools

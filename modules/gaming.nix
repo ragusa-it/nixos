@@ -9,7 +9,9 @@
 }:
 
 {
-  # Steam
+  # ═══════════════════════════════════════════════════════════════
+  # STEAM
+  # ═══════════════════════════════════════════════════════════════
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Steam Remote Play
@@ -22,7 +24,13 @@
     ];
   };
 
-  # Gamemode - Optimize system for gaming
+  # Steam hardware support (controllers, VR, etc.)
+  hardware.steam-hardware.enable = true;
+
+  # ═══════════════════════════════════════════════════════════════
+  # GAMEMODE
+  # ═══════════════════════════════════════════════════════════════
+  # Optimize system for gaming
   programs.gamemode = {
     enable = true;
     enableRenice = true; # Allow renice for priority boost
@@ -40,10 +48,9 @@
     };
   };
 
-  # Steam hardware support (controllers, VR, etc.)
-  hardware.steam-hardware.enable = true;
-
-  # Gaming packages
+  # ═══════════════════════════════════════════════════════════════
+  # GAMING PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   # NOTE: Game launchers (lutris, heroic, protonup-qt) are in `nix profile`
   environment.systemPackages = with pkgs; [
     # Wine for non-Steam games
@@ -61,7 +68,9 @@
     heroic
   ];
 
-  # Gaming-related kernel tweaks
+  # ═══════════════════════════════════════════════════════════════
+  # KERNEL TWEAKS
+  # ═══════════════════════════════════════════════════════════════
   boot.kernel.sysctl = {
     # Increase file watchers for large games
     "fs.inotify.max_user_watches" = 524288;
@@ -71,11 +80,17 @@
     "vm.vfs_cache_pressure" = 50;
   };
 
+  # ═══════════════════════════════════════════════════════════════
+  # CONTROLLER SUPPORT
+  # ═══════════════════════════════════════════════════════════════
   # Udev rules for game controllers
   services.udev.packages = with pkgs; [
     game-devices-udev-rules # Support for various game controllers
   ];
 
+  # ═══════════════════════════════════════════════════════════════
+  # USER PERMISSIONS
+  # ═══════════════════════════════════════════════════════════════
   # Add user to gamemode group
   users.users.${username}.extraGroups = [ "gamemode" ];
 }

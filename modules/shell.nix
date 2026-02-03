@@ -8,7 +8,9 @@
 }:
 
 {
-  # Enable Fish shell
+  # ═══════════════════════════════════════════════════════════════
+  # FISH SHELL
+  # ═══════════════════════════════════════════════════════════════
   programs.fish = {
     enable = true;
 
@@ -33,9 +35,11 @@
       set -g fish_prompt_pwd_dir_length 3
     '';
 
-    # Shell aliases
+    # ═══════════════════════════════════════════════════════════════
+    # ALIASES
+    # ═══════════════════════════════════════════════════════════════
     shellAliases = {
-      # Modern replacements
+      # ─── Modern Replacements ───
       ll = "eza -la --icons --git";
       ls = "eza --icons";
       la = "eza -la --icons";
@@ -47,14 +51,14 @@
       du = "dust";
       sed = "sd";
 
-      # Docker shortcuts
+      # ─── Docker ───
       dc = "docker compose";
       dps = "docker ps";
       dpa = "docker ps -a";
       dl = "docker logs -f";
       dex = "docker exec -it";
 
-      # Git shortcuts
+      # ─── Git ───
       gs = "git status";
       gd = "git diff";
       gds = "git diff --staged";
@@ -68,7 +72,7 @@
       gb = "git branch";
       gst = "git stash";
 
-      # NixOS shortcuts
+      # ─── NixOS ───
       rebuild = "sudo nixos-rebuild switch --flake .";
       rebuild-boot = "sudo nixos-rebuild boot --flake .";
       rebuild-test = "sudo nixos-rebuild test --flake .";
@@ -80,20 +84,23 @@
       update-apps = "nix profile upgrade '.*'";
       list-apps = "nix profile list";
 
-      # System
+      # ─── System ───
       ports = "ss -tulanp";
       myip = "curl -s ifconfig.me";
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
 
-      # Safety
+      # ─── Safety ───
       rm = "rm -i";
       mv = "mv -i";
       cp = "cp -i";
     };
 
-    # Shell abbreviations (expand on space, more flexible than aliases)
+    # ═══════════════════════════════════════════════════════════════
+    # ABBREVIATIONS
+    # ═══════════════════════════════════════════════════════════════
+    # Expand on space, more flexible than aliases
     shellAbbrs = {
       g = "git";
       d = "docker";
@@ -104,6 +111,9 @@
     };
   };
 
+  # ═══════════════════════════════════════════════════════════════
+  # PLUGINS & PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   # Fish plugins (managed by NixOS)
   environment.systemPackages = with pkgs; [
     # Fish plugins

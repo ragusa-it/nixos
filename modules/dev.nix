@@ -9,7 +9,9 @@
 }:
 
 {
-  # Docker
+  # ═══════════════════════════════════════════════════════════════
+  # DOCKER
+  # ═══════════════════════════════════════════════════════════════
   virtualisation.docker = {
     enable = true;
 
@@ -24,53 +26,46 @@
   # Add user to docker group
   users.users.${username}.extraGroups = [ "docker" ];
 
-  # Direnv for per-project environments
+  # ═══════════════════════════════════════════════════════════════
+  # DIRENV
+  # ═══════════════════════════════════════════════════════════════
+  # Per-project environments
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true; # Faster direnv for Nix
   };
 
-  # Development packages
+  # ═══════════════════════════════════════════════════════════════
+  # DEVELOPMENT PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   # NOTE: GUI tools (dbeaver) and optional TUIs (lazygit, lazydocker) are in `nix profile`
   environment.systemPackages = with pkgs; [
-    # ─────────────────────────────────────────────────────────────
-    # Containers
-    # ─────────────────────────────────────────────────────────────
+    # ─── Containers ───
     docker-compose # Docker Compose v2
 
-    # ─────────────────────────────────────────────────────────────
-    # Languages & Runtimes
-    # ─────────────────────────────────────────────────────────────
+    # ─── Languages & Runtimes ───
     nodejs_22 # Node.js LTS (for Vicinae extensions, etc.)
     bun # Fast JavaScript runtime/bundler
     python3 # Python 3
     rustup # Rust toolchain manager
 
-    # ─────────────────────────────────────────────────────────────
-    # Build Tools
-    # ─────────────────────────────────────────────────────────────
+    # ─── Build Tools ───
     gcc
     gnumake
     cmake
     pkg-config
 
-    # ─────────────────────────────────────────────────────────────
-    # Version Control
-    # ─────────────────────────────────────────────────────────────
+    # ─── Version Control ───
     git
     gh # GitHub CLI
     delta # Better git diff
     lazygit # Git UI
 
-    # ─────────────────────────────────────────────────────────────
-    # Editors & LSP
-    # ─────────────────────────────────────────────────────────────
+    # ─── Editors & LSP ───
     # nil already in base config (Nix LSP)
     nixfmt # Nix formatter
 
-    # ─────────────────────────────────────────────────────────────
-    # CLI Utilities (used by shell aliases)
-    # ─────────────────────────────────────────────────────────────
+    # ─── CLI Utilities ───
     jq # JSON processor
     yq # YAML processor
     ripgrep # Fast grep

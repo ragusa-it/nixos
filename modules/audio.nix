@@ -8,10 +8,15 @@
 }:
 
 {
+  # ═══════════════════════════════════════════════════════════════
+  # BLUETOOTH
+  # ═══════════════════════════════════════════════════════════════
   # Bluetooth GUI management
   services.blueman.enable = true;
 
-  # Audio packages
+  # ═══════════════════════════════════════════════════════════════
+  # AUDIO PACKAGES
+  # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
     # PipeWire volume control
     pwvucontrol # Modern PipeWire volume control (Qt)
@@ -28,6 +33,9 @@
     # Bluetooth audio codecs are handled by PipeWire automatically
   ];
 
+  # ═══════════════════════════════════════════════════════════════
+  # BLUETOOTH CODECS
+  # ═══════════════════════════════════════════════════════════════
   # Ensure PipeWire has good Bluetooth codec support
   # This is already configured in your main config, but we ensure AAC/LDAC support
   services.pipewire.wireplumber.extraConfig = {

@@ -9,46 +9,46 @@
 
 {
   environment.systemPackages = with pkgs; [
-    # ─────────────────────────────────────────────────────────────
-    # Media Viewers
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # MEDIA VIEWERS
+    # ═══════════════════════════════════════════════════════════════
     loupe # GNOME image viewer
     evince # PDF/document viewer
     celluloid # MPV frontend (GTK video player)
     mpv # Powerful CLI video player
 
-    # ─────────────────────────────────────────────────────────────
-    # Music
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # MUSIC
+    # ═══════════════════════════════════════════════════════════════
     amberol # Simple music player for local files
     feishin # Navidrome/Jellyfin client
     picard # MusicBrainz Picard - music tagger
     beets # Music library manager
     cava # Audio visualizer
 
-    # ─────────────────────────────────────────────────────────────
-    # Communication
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # COMMUNICATION
+    # ═══════════════════════════════════════════════════════════════
     vesktop # Discord client (Wayland-native, with Vencord)
     thunderbird # Email client
     signal-desktop # Encrypted messaging
     telegram-desktop # Telegram client
 
-    # ─────────────────────────────────────────────────────────────
-    # Office & Productivity
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # OFFICE & PRODUCTIVITY
+    # ═══════════════════════════════════════════════════════════════
     onlyoffice-desktopeditors # Office suite (latest)
     obsidian # Note-taking with Markdown
 
-    # ─────────────────────────────────────────────────────────────
-    # System Utilities
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # SYSTEM UTILITIES
+    # ═══════════════════════════════════════════════════════════════
     btop # Modern system monitor (terminal)
     mission-center # GNOME system monitor (GUI, like Windows Task Manager)
 
-    # ─────────────────────────────────────────────────────────────
-    # File Management (GNOME integration)
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # FILE MANAGEMENT
+    # ═══════════════════════════════════════════════════════════════
     file-roller # Archive manager (GUI)
     gnome-disk-utility # Disk management
 
@@ -58,9 +58,9 @@
     p7zip
     unrar
 
-    # ─────────────────────────────────────────────────────────────
-    # Screenshots & Screen Recording
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # SCREENSHOTS & RECORDING
+    # ═══════════════════════════════════════════════════════════════
     swappy # Screenshot annotation tool
 
     # Screen recording
@@ -68,24 +68,24 @@
     gpu-screen-recorder # Lightweight GPU-accelerated recorder (AMD/NVIDIA/Intel)
     kooha # Simple GNOME-style screen recorder
 
-    # ─────────────────────────────────────────────────────────────
-    # Security & Passwords
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # SECURITY & PASSWORDS
+    # ═══════════════════════════════════════════════════════════════
     bitwarden-desktop # Password manager
     seahorse # GNOME Keyring GUI
 
-    # ─────────────────────────────────────────────────────────────
-    # Utilities
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # UTILITIES
+    # ═══════════════════════════════════════════════════════════════
     gnome-calculator # Calculator
     gnome-clocks # World clocks, alarms, timers
     baobab # Disk usage analyzer
     localsend # AirDrop-like file sharing (cross-platform)
     meld # Visual diff and merge tool
 
-    # ─────────────────────────────────────────────────────────────
-    # System Tools
-    # ─────────────────────────────────────────────────────────────
+    # ═══════════════════════════════════════════════════════════════
+    # SYSTEM TOOLS
+    # ═══════════════════════════════════════════════════════════════
     rclone # Cloud storage sync (Google Drive, Dropbox, etc.)
   ];
 
