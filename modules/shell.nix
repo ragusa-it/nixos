@@ -107,7 +107,7 @@
       n = "nix";
       v = "nvim";
       c = "code";
-      z = "zed";
+      z = "zeditor";
     };
   };
 
