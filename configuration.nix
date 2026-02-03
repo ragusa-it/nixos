@@ -36,7 +36,7 @@
   # ─── Bootloader: Limine with Secure Boot ───
   boot.loader.systemd-boot.enable = false; # Disabled - using Limine
   boot.loader.limine.enable = true;
-  boot.loader.limine.secureBoot.enable = true;
+  boot.loader.limine.secureBoot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # ─── Kernel ───
@@ -48,14 +48,10 @@
     "amdgpu.ppfeaturemask=0xffffffff" # Full AMD GPU power features (from gpu-amd.nix)
   ];
 
-  # ─── Full Disk Encryption (LUKS) ───
+ # ─── Full Disk Encryption (LUKS) ───
   boot.initrd.luks.devices = {
-    "cryptroot" = {
-      device = "/dev/disk/by-label/cryptroot";
-      allowDiscards = true; # Enable TRIM for SSD performance
-    };
     "cryptswap" = {
-      device = "/dev/disk/by-label/cryptswap";
+      device = "/dev/mapper/cryptswap";
       allowDiscards = true;
       keyFile = "/swap.key"; # Auto-unlock with keyfile after root is decrypted
     };
