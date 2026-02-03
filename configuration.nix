@@ -22,7 +22,7 @@
     ./modules/apps.nix # User applications
     ./modules/dev.nix # Docker, dev tools
     ./modules/theming.nix # Fonts, themes, cursors
-#    ./modules/virtualization.nix # QEMU, KVM, virt-manager
+    #    ./modules/virtualization.nix # QEMU, KVM, virt-manager
     ./modules/power.nix # Power management, CPU governors
     ./modules/shell.nix # Fish shell configuration
     ./modules/services.nix # System services (fstrim, zram, avahi, psd)
@@ -52,6 +52,10 @@
   # sched-ext scheduler for gaming performance
   services.scx.enable = true;
   services.scx.scheduler = "scx_lavd"; # Low-latency scheduler, good for gaming
+
+  # ─── Hibernation ───
+  # Resume from encrypted swap (cryptswap must be unlocked before resume)
+  boot.resumeDevice = "/dev/mapper/cryptswap";
 
   # ═══════════════════════════════════════════════════════════════
   # NETWORKING
