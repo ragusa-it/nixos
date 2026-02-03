@@ -54,6 +54,11 @@
     # Gaming utilities (system integration)
     gamemode # CLI tool to trigger gamemode
     gamescope # Micro-compositor for games (fixes some issues)
+
+    # Launchers
+    faugus-launcher
+    lutris
+    heroic
   ];
 
   # Gaming-related kernel tweaks
