@@ -261,22 +261,6 @@
     # AI coding
     claude-code
   ];
-  nixpkgs.config.permittedInsecurePackages = [
-    "libsoup-2.74.3"
-  ];
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      gnome = prev.gnome.overrideScope (
-        gfinal: gprev: {
-          gvfs = gprev.gvfs.override {
-            googleSupport = true;
-            gnomeSupport = true;
-          };
-        }
-      );
-    })
-  ];
 
   # ═══════════════════════════════════════════════════════════════
   # SERVICES
