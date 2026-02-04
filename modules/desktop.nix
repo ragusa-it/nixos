@@ -22,9 +22,6 @@
       default = [ "gtk" ];
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
-    config.niri = {
-      default = [ "gtk" ];
-    };
   };
 
   # ═══════════════════════════════════════════════════════════════
