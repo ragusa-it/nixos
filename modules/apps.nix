@@ -77,6 +77,8 @@
     gnome-clocks # World clocks, alarms, timers
     baobab # Disk usage analyzer
     localsend # AirDrop-like file sharing (cross-platform)
+    protonvpn-gui # ProtonVPN GUI
+    protonmail-bridge-gui # ProtonMail Bridge GUI
 
     # ═══════════════════════════════════════════════════════════════
     # SYSTEM TOOLS
