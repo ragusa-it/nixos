@@ -62,7 +62,7 @@
     wlsunset # Blue light filter / night mode
     brightnessctl # Brightness control (even for desktop monitors via DDC)
     wlogout # Logout menu / session manager
-    gnome-software
+    bazaar # App Store
   ];
 
   # ═══════════════════════════════════════════════════════════════
