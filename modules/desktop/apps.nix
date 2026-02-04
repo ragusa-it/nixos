@@ -19,26 +19,32 @@
     sbctl
     nil
     nixd
-
-    # Wayland
     xwayland-satellite
     grim
     slurp
+    btop
+    mission-center
+    file-roller
+    gnome-disk-utility
+    unzip
+    zip
+    p7zip
+    unrar
 
     # File management
     nautilus
 
-    # Editors and browsers
+    # Editor
     zed-editor
+
+    # Zen Browser
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Desktop shell
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Terminal
     ghostty
-    claude-code
 
     # Media viewers
     loupe
@@ -63,16 +69,6 @@
     onlyoffice-desktopeditors
     obsidian
 
-    # System utilities
-    btop
-    mission-center
-    file-roller
-    gnome-disk-utility
-    unzip
-    zip
-    p7zip
-    unrar
-
     # Recording
     gpu-screen-recorder
 
@@ -87,6 +83,11 @@
     localsend
     protonvpn-gui
     protonmail-bridge-gui
+
+    # Game Launchers
+    faugus-launcher
+    lutris
+    heroic
 
     # Cloud sync
     rclone

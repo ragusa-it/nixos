@@ -12,9 +12,6 @@
     wineWowPackages.stagingFull
     winetricks
     protontricks
-    faugus-launcher
-    lutris
-    heroic
   ];
 
   services.udev.packages = with pkgs; [

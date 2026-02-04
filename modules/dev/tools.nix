@@ -42,5 +42,7 @@
     sd
     pv
     parallel
+    claude-code
+    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

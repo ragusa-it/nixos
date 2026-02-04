@@ -51,7 +51,7 @@
       username = "pinj"; # Single source of truth for username
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.atlas = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
           inherit inputs username;
