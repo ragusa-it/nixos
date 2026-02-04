@@ -156,8 +156,8 @@
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
-        Experimental = true;
-        KernelExperimental = true;
+        Experimental = false;
+        KernelExperimental = false;
       };
       Policy = {
         AutoEnable = true;
