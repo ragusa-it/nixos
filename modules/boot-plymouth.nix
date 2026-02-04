@@ -9,6 +9,16 @@
 
 {
   # ═══════════════════════════════════════════════════════════════
+  # SYSTEMD IN INITRD (REQUIRED FOR PLYMOUTH + LUKS)
+  # ═══════════════════════════════════════════════════════════════
+
+  # Enable systemd-based initramfs instead of legacy stage-1 init.
+  # This allows Plymouth to integrate with systemd's password agent,
+  # displaying the LUKS encryption password prompt within the boot
+  # animation instead of falling back to text mode.
+  boot.initrd.systemd.enable = true;
+
+  # ═══════════════════════════════════════════════════════════════
   # PLYMOUTH BOOT SPLASH
   # ═══════════════════════════════════════════════════════════════
 
