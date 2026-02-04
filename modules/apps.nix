@@ -51,6 +51,8 @@
     # ═══════════════════════════════════════════════════════════════
     file-roller # Archive manager (GUI)
     gnome-disk-utility # Disk management
+    gnome-online-accounts
+    gnome-gnome-online-accounts-gtk
 
     # Archive tools (for file-roller and CLI)
     unzip
