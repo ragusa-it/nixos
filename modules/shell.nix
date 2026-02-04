@@ -33,6 +33,9 @@
 
       # Better directory navigation
       set -g fish_prompt_pwd_dir_length 3
+
+      # Clear screen and show system info on new shell
+      clear && fastfetch
     '';
 
     # ═══════════════════════════════════════════════════════════════
