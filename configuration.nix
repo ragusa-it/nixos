@@ -243,11 +243,11 @@
     zed-editor
 
     # Browser
-    inputs.zen-browser.packages.${pkgs.system}.default
+    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Flake inputs (desktop shell)
-    inputs.noctalia.packages.${pkgs.system}.default
-    inputs.opencode.packages.${pkgs.system}.default
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Terminal
     ghostty
