@@ -27,6 +27,7 @@
     ./modules/shell.nix # Fish shell configuration
     ./modules/services.nix # System services (fstrim, zram, avahi, psd)
     ./modules/navidrome.nix # Music streaming server
+    ./modules/limine-custom-labels.nix # Custom boot entry labels with kernel version
   ];
 
   # ═══════════════════════════════════════════════════════════════

@@ -15,12 +15,15 @@ nixos/
 ├── flake.nix                 # Flake inputs and outputs
 ├── configuration.nix         # Main config (imports all modules)
 ├── hardware-configuration.nix # Auto-generated (don't edit)
+├── overlays/                 # Custom nixpkgs overlays
+│   └── limine-install-patched.py  # Patched Limine install script
 └── modules/
     ├── apps.nix              # User applications
     ├── desktop.nix           # Wayland, portals, polkit
     ├── dev.nix               # Docker, dev tools, languages
     ├── gaming.nix            # Steam, Gamemode, Wine
     ├── gpu-amd.nix           # AMD GPU drivers
+    ├── limine-custom-labels.nix  # Custom boot entry labels
     ├── shell.nix             # Fish shell config
     ├── theming.nix           # Fonts, themes, cursors
     └── ...                   # Other modules
@@ -164,3 +167,33 @@ nix profile install nixpkgs#packagename
 - NixOS fails builds on errors - this is the primary validation
 - Always test with `nixos-rebuild test` before `switch`
 - Use `nix flake check` for quick syntax validation
+
+## Custom Limine Boot Labels (MAINTENANCE REQUIRED)
+
+**Files:**
+- `modules/limine-custom-labels.nix` - Module that applies the patch
+- `overlays/limine-install-patched.py` - Patched install script
+
+**What it does:**
+- Changes boot entries from "Generation XYZ" to "Linux 6.X.Y-cachyos - Generation XYZ"
+- Removes "default profile" from group name (shows just "NixOS")
+- Shows kernel version in all entries including specialisations
+
+**How it works:**
+The module imports the standard Limine module but overrides `system.build.installBootLoader` 
+with a patched Python script that extracts kernel version from the kernel path.
+
+**Maintenance burden:**
+- **HIGH** - This will break when nixpkgs updates the limine module
+- Check after every `nix flake update` by running `nixos-rebuild test`
+- If it breaks, compare `overlays/limine-install-patched.py` with the upstream
+  `nixos/modules/system/boot/loader/limine/limine-install.py` in nixpkgs
+- Typical breakage: line number changes, function signature changes, new bootspec fields
+
+**To fix breakage:**
+1. Check current upstream script: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/limine/limine-install.py
+2. Identify the changes needed
+3. Re-apply the two key modifications:
+   - Line ~550: Change `group_name = 'default profile'...` to `group_name = ''`
+   - Add `get_kernel_version()` function and use it in `generate_config_entry()`
+4. Test with `sudo nixos-rebuild test --flake .#nixos`
