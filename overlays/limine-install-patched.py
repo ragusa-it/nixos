@@ -325,7 +325,7 @@ def config_entry(levels: int, bootspec: BootSpec, label: str, time: str) -> str:
 
 def get_kernel_version(kernel_path: str) -> str:
     """Extract kernel version from the kernel path.
-    
+
     Path format: /boot/limine/kernels/{hash}-linux-{name}-{version}/vmlinuz
     Example: zsrdzfxhayb0lbhcq2hwa3shik9rda20-linux-cachyos-latest-x86_64-v3-6.18.8
     Returns: 6.18.8-cachyos
@@ -335,7 +335,7 @@ def get_kernel_version(kernel_path: str) -> str:
         kernel_dir = os.path.dirname(kernel_path)
         # Get the directory name which contains the store hash + package name + version
         dir_name = os.path.basename(kernel_dir)
-        
+
         # Extract version number from the end (e.g., 6.18.8)
         version_match = re.search(r'(\d+\.\d+\.\d+)$', dir_name)
         if version_match:
@@ -344,7 +344,7 @@ def get_kernel_version(kernel_path: str) -> str:
             if 'cachyos' in dir_name.lower():
                 return f"{version}-cachyos"
             return version
-        
+
         # Fallback: if no match, return "unknown"
         return "unknown"
     except:
@@ -359,7 +359,7 @@ def generate_config_entry(profile: str, gen: str, special: bool) -> str:
     specialisation_list = boot_spec.specialisations.items()
     depth = 2
     entry = ""
-    
+
     # Get kernel version for this generation
     kernel_version = get_kernel_version(boot_spec.kernel)
 
@@ -529,9 +529,7 @@ def install_bootloader() -> None:
     ''')
 
     for (profile, gens) in profiles:
-        # PATCHED: Changed from 'default profile' to '' for cleaner group name
-        group_name = '' if profile == 'system' else f"profile '{profile}'"
-        config_file += f'/+NixOS{group_name}\n'
+        config_file += f'/+NixOS\n'
 
         isFirst = True
 
