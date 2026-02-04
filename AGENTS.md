@@ -116,7 +116,6 @@ services.example = {
 | `nixpkgs` | NixOS unstable channel |
 | `nix-cachyos-kernel` | CachyOS optimized kernel |
 | `noctalia` | Desktop shell |
-| `vicinae` | Application launcher |
 
 ## Common Patterns
 

@@ -136,22 +136,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1762111121,
-        "narHash": "sha256-4vhDuZ7OZaZmKKrnDpxLZZpGIJvAeMtK6FKLJYUtAdw=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b3d51a0365f6695e7dd5cdf3e180604530ed33b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -159,11 +143,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770149488,
-        "narHash": "sha256-8TFJGH6PTY453TudyPeWSmwCQsy6hT8W+2CLMMMFx5M=",
+        "lastModified": 1770150024,
+        "narHash": "sha256-sX7I5MJYDVJePQluHr+fL7iG38orZYYYyBCye/xLN1c=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "9fe299309e12652ec02c3452fbec4f89c8341029",
+        "rev": "505d6343e078f9a0288bbf16a78d5d7fd72aeeba",
         "type": "github"
       },
       "original": {
@@ -198,42 +182,7 @@
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
         "opencode": "opencode",
-        "vicinae": "vicinae",
         "zen-browser": "zen-browser"
-      }
-    },
-    "systems": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
-    "vicinae": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3",
-        "systems": "systems"
-      },
-      "locked": {
-        "lastModified": 1770143778,
-        "narHash": "sha256-OA7JKbTQZwtVwjq+DDefRR8rLq3Q4jgHqomsjoiA228=",
-        "owner": "vicinaehq",
-        "repo": "vicinae",
-        "rev": "021532d64503f45052ed782f1be116018ed0c4b1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "vicinaehq",
-        "repo": "vicinae",
-        "type": "github"
       }
     },
     "zen-browser": {

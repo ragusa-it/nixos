@@ -44,9 +44,6 @@
   # DESKTOP PACKAGES
   # ═══════════════════════════════════════════════════════════════
   environment.systemPackages = with pkgs; [
-    # Vicinae launcher
-    inputs.vicinae.packages.${pkgs.system}.default
-
     # Polkit agent
     polkit_gnome
 

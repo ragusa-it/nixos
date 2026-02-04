@@ -22,7 +22,6 @@
     ./modules/apps.nix # User applications
     ./modules/dev.nix # Docker, dev tools
     ./modules/theming.nix # Fonts, themes, cursors
-    #    ./modules/virtualization.nix # QEMU, KVM, virt-manager
     ./modules/power.nix # Power management, CPU governors
     ./modules/shell.nix # Fish shell configuration
     ./modules/services.nix # System services (fstrim, zram, avahi, psd)
@@ -35,19 +34,31 @@
   fileSystems."/mnt/Intenso-SSD" = {
     device = "/dev/disk/by-uuid/51c56376-8384-4762-a8e9-8151fe91173b";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "x-gvfs-show" ];
+    options = [
+      "defaults"
+      "nofail"
+      "x-gvfs-show"
+    ];
   };
 
   fileSystems."/mnt/Samsung-SSD" = {
     device = "/dev/disk/by-uuid/343ea612-9305-4fb6-9d4c-7a7ca8b0e72c";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "x-gvfs-show" ];
+    options = [
+      "defaults"
+      "nofail"
+      "x-gvfs-show"
+    ];
   };
 
   fileSystems."/mnt/Extern-SSD" = {
     device = "/dev/disk/by-uuid/4e233c88-e91b-480c-b795-6fffc1fbdc69";
     fsType = "ext4";
-    options = [ "defaults" "nofail" "x-gvfs-show" ];
+    options = [
+      "defaults"
+      "nofail"
+      "x-gvfs-show"
+    ];
   };
 
   # ═══════════════════════════════════════════════════════════════
@@ -161,10 +172,6 @@
     extraGroups = [
       "wheel" # Sudo access
       "networkmanager" # Network configuration
-      # Additional groups are added by modules:
-      # - docker (dev.nix)
-      # - gamemode (gaming.nix)
-      # - corectrl (gpu-amd.nix)
     ];
     shell = pkgs.fish; # Fish shell (migrated from Arch)
   };
@@ -246,9 +253,6 @@
 
     # AI coding
     claude-code
-
-    # Package managers
-    pnpm
   ];
 
   # ═══════════════════════════════════════════════════════════════

@@ -38,16 +38,17 @@
   # ═══════════════════════════════════════════════════════════════
   # DEVELOPMENT PACKAGES
   # ═══════════════════════════════════════════════════════════════
-  # NOTE: GUI tools (dbeaver) and optional TUIs (lazygit, lazydocker) are in `nix profile`
   environment.systemPackages = with pkgs; [
     # ─── Containers ───
     docker-compose # Docker Compose v2
+    lazydocker
 
     # ─── Languages & Runtimes ───
-    nodejs_22 # Node.js LTS (for Vicinae extensions, etc.)
-    bun # Fast JavaScript runtime/bundler
-    python3 # Python 3
-    rustup # Rust toolchain manager
+    bun
+    pnpm
+    nodejs
+    python3
+    rustup
 
     # ─── Build Tools ───
     gcc
@@ -57,13 +58,13 @@
 
     # ─── Version Control ───
     git
-    gh # GitHub CLI
-    delta # Better git diff
-    lazygit # Git UI
+    gh
+    delta
+    lazygit
 
     # ─── Editors & LSP ───
-    # nil already in base config (Nix LSP)
-    nixfmt # Nix formatter
+    nil
+    nixfmt
 
     # ─── CLI Utilities ───
     jq # JSON processor
@@ -73,7 +74,7 @@
     fzf # Fuzzy finder
     eza # Modern ls
     bat # Cat with syntax highlighting
-    broot
+    broot # TUI Folder Tree
 
     # Additional CLI tools
     tealdeer # tldr - simplified man pages
@@ -82,7 +83,4 @@
     pv # Pipe viewer (progress bar for pipes)
     parallel # GNU parallel (run commands in parallel)
   ];
-
-  # Note: Shell aliases are now managed in shell.nix (Fish shell)
-  # Zsh is kept as a fallback shell but Fish is the primary
 }

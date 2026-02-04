@@ -42,7 +42,6 @@ nixos/
 | `nixpkgs` | NixOS unstable channel |
 | `nix-cachyos-kernel` | CachyOS optimized kernel with x86_64-v3 |
 | `noctalia` | Noctalia desktop shell |
-| `vicinae` | Vicinae application launcher |
 | `zen-browser` | Zen Browser (Firefox-based) |
 | `opencode` | OpenCode AI coding assistant |
 
@@ -138,9 +137,7 @@ nix-store --optimise
 ## 🖥️ Desktop Environment
 
 - **Compositor**: Niri (scrollable tiling Wayland compositor)
-- **Shell**: Noctalia (desktop shell for Niri)
-- **Display Manager**: Ly (TUI display manager)
-- **Launcher**: Vicinae (application launcher)
+- **Display Manager**: Ly
 - **Terminal**: Ghostty
 - **Browser**: Zen Browser (primary), Firefox
 - **File Manager**: Nautilus (GNOME Files)
