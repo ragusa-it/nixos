@@ -83,6 +83,7 @@
     QT_QPA_PLATFORM = "wayland"; # Qt apps use Wayland
     SDL_VIDEODRIVER = "wayland"; # SDL games use Wayland
     _JAVA_AWT_WM_NONREPARENTING = "1"; # Java apps fix
+    GIO_EXTRA_MODULES = [ "${pkgs.gvfs}/lib/gio/modules" ];
 
     # XDG
     XDG_SESSION_TYPE = "wayland";
