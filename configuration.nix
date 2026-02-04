@@ -68,7 +68,11 @@
 
   # ─── Bootloader: Limine with Secure Boot ───
   boot.loader.systemd-boot.enable = false; # Disabled - using Limine
-  boot.loader.limine.enable = true;
+  boot.loader.limine = {
+    enable = true;
+    style.wallpapers = "${./wallpaper/nix.png}";
+  };
+
   boot.loader.limine.secureBoot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -255,12 +259,29 @@
     # AI coding
     claude-code
   ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      gnome = prev.gnome.overrideScope (
+        gfinal: gprev: {
+          gvfs = gprev.gvfs.override {
+            googleSupport = true;
+            gnomeSupport = true;
+          };
+        }
+      );
+    })
+  ];
 
   # ═══════════════════════════════════════════════════════════════
   # SERVICES
   # ═══════════════════════════════════════════════════════════════
   services.openssh.enable = true;
   services.tailscale.enable = true;
+  services.gnome.gnome-online-accounts.enable = true;
 
   # ═══════════════════════════════════════════════════════════════
   # SYSTEM
