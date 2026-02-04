@@ -69,6 +69,7 @@
     brightnessctl # Brightness control (even for desktop monitors via DDC)
     wlogout # Logout menu / session manager
     bazaar # App Store
+    matugen
   ];
 
   # ═══════════════════════════════════════════════════════════════
