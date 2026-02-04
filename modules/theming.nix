@@ -99,7 +99,7 @@
         settings = {
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
-            gtk-theme = "adw-gtk3-dark";
+            gtk-theme = "adw-gtk3";
             icon-theme = "Papirus-Dark";
             cursor-theme = "Adwaita";
             cursor-size = lib.gvariant.mkInt32 24;
