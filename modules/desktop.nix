@@ -25,7 +25,7 @@
   # GUI privilege escalation
   security.polkit.enable = true;
 
-  # Polkit authentication agent (runs on login)
+  # Polkit authentication agent
   systemd.user.services.polkit-gnome-agent = {
     description = "Polkit GNOME Authentication Agent";
     wantedBy = [ "graphical-session.target" ];

@@ -61,10 +61,7 @@
     # ═══════════════════════════════════════════════════════════════
     # SCREENSHOTS & RECORDING
     # ═══════════════════════════════════════════════════════════════
-    swappy # Screenshot annotation tool
-
     # Screen recording
-    obs-studio # Full-featured streaming/recording suite
     gpu-screen-recorder # Lightweight GPU-accelerated recorder (AMD/NVIDIA/Intel)
 
     # ═══════════════════════════════════════════════════════════════
@@ -80,7 +77,6 @@
     gnome-clocks # World clocks, alarms, timers
     baobab # Disk usage analyzer
     localsend # AirDrop-like file sharing (cross-platform)
-    meld # Visual diff and merge tool
 
     # ═══════════════════════════════════════════════════════════════
     # SYSTEM TOOLS

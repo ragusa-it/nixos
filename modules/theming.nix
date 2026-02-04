@@ -68,8 +68,6 @@
     # Icon theme
     papirus-icon-theme # Modern, flat icons
 
-    # Cursor theme (Adwaita cursor is included in adwaita-icon-theme above)
-
     # Qt theming
     libsForQt5.qt5ct # Qt5 configuration tool
     kdePackages.qt6ct # Qt6 configuration tool
