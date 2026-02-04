@@ -16,6 +16,7 @@
 
     # Modular configuration
     ./modules/desktop.nix # Portal, polkit, launcher, lock, wallpaper
+    ./modules/boot-plymouth.nix # Plymouth boot splash
     ./modules/gpu-amd.nix # AMD graphics, Vulkan, VA-API
     ./modules/audio.nix # Bluetooth, audio controls
     ./modules/gaming.nix # Steam, Gamemode, Lutris, etc.
