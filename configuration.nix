@@ -72,6 +72,7 @@
   boot.loader.limine = {
     enable = true;
     style.wallpapers = [ ./wallpaper/nix.png ];
+    maxGenerations = 5;
   };
 
   boot.loader.limine.secureBoot.enable = true;
