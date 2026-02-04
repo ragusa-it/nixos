@@ -66,26 +66,6 @@
         "type": "github"
       }
     },
-    "kilo": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1770234115,
-        "narHash": "sha256-/X6zSjlr7bxGebQ7h7BiBxtFZ84K4Gbmxnv3WfEYQoE=",
-        "owner": "Kilo-Org",
-        "repo": "kilo",
-        "rev": "d474eee4f16b385597680c099f5654261a7c566e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Kilo-Org",
-        "repo": "kilo",
-        "type": "github"
-      }
-    },
     "nix-cachyos-kernel": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
@@ -142,11 +122,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1770115704,
-        "narHash": "sha256-KHFT9UWOF2yRPlAnSXQJh6uVcgNcWlFqqiAZ7OVlHNc=",
+        "lastModified": 1770181073,
+        "narHash": "sha256-ksTL7P9QC1WfZasNlaAdLOzqD8x5EPyods69YBqxSfk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e6eae2ee2110f3d31110d5c222cd395303343b08",
+        "rev": "bf922a59c5c9998a6584645f7d0de689512e444c",
         "type": "github"
       },
       "original": {
@@ -163,11 +143,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770217681,
-        "narHash": "sha256-gMJRIJiZFBe7Bwrwo2cz7YAxV0OiAVQMcmp8fY/YDPg=",
+        "lastModified": 1770231512,
+        "narHash": "sha256-yuWZ9o2Ntjuiz2QJfkmbjVTDGl1jfLyWip8qqd1gf/M=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "91d07e9279aa9394427289f4b5dff959fbf779fb",
+        "rev": "3a1dbd4c281bbdaa25b78aa1731042b1a723aca0",
         "type": "github"
       },
       "original": {
@@ -183,11 +163,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770219081,
-        "narHash": "sha256-9/2OOCv5jsVQt2qaW1RNu6FchXofUqbOE18lRMGC/MY=",
+        "lastModified": 1770236822,
+        "narHash": "sha256-Zqr4WB2og2EwZV3UzPXJ5oSKSo17wzHzxvejnPQGqPk=",
         "owner": "anomalyco",
         "repo": "opencode",
-        "rev": "a3b281b2f3414b82518909d5e31e4fbbd3f7bf3b",
+        "rev": "41bc4ec7f0a42d6350b2af5ad44c7a308ee26b25",
         "type": "github"
       },
       "original": {
@@ -198,7 +178,6 @@
     },
     "root": {
       "inputs": {
-        "kilo": "kilo",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
