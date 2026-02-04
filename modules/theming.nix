@@ -80,15 +80,5 @@
   # ═══════════════════════════════════════════════════════════════
   # CURSOR & ICON PATHS
   # ═══════════════════════════════════════════════════════════════
-  # NOTE: Session variables (GTK_THEME, XCURSOR_*, QT_QPA_PLATFORMTHEME)
-  # are consolidated in desktop.nix
-
-  # Ensure cursor themes are found
   environment.pathsToLink = [ "/share/icons" ];
-
-  # ═══════════════════════════════════════════════════════════════
-  # GTK SETTINGS (DCONF)
-  # ═══════════════════════════════════════════════════════════════
-  # These can be overridden by the user with nwg-look or dconf-editor
-  # Default theme settings are applied per-user
 }

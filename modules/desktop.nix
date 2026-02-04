@@ -90,7 +90,7 @@
 
     # Theming (consolidated from theming.nix)
     QT_QPA_PLATFORMTHEME = "qt6ct";
-    XCURSOR_THEME = "Adwaita";
+    XCURSOR_THEME = "default";
     XCURSOR_SIZE = "24";
   };
 
