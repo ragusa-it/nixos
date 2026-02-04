@@ -1,315 +1,158 @@
-# Atlas - NixOS Desktop Configuration
+# atlas - NixOS Configuration
 
-A modular, flake-based NixOS configuration for a high-performance desktop workstation with AMD GPU, optimized for gaming and development.
+[![NixOS](https://img.shields.io/badge/NixOS-unstable-blue?logo=nixos)](https://nixos.org)
+[![Flakes](https://img.shields.io/badge/Nix-Flakes-blue?logo=nixos)](https://nixos.wiki/wiki/Flakes)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
+> A modular, declarative NixOS configuration for desktop gaming and development.
+
+## Overview
+
+This repository contains the complete NixOS system configuration for **atlas**, a desktop system optimized for gaming, development, and daily use. It uses Nix flakes for reproducible builds and modular organization for maintainability.
+
+### System Highlights
+
+- **OS**: NixOS (unstable channel)
+- **Kernel**: CachyOS optimized kernel with x86_64-v3 microarchitecture
+- **Bootloader**: Limine with Secure Boot support
+- **Window Manager**: Niri (scrollable-tiling Wayland compositor)
+- **Shell**: Fish with Zsh fallback
+- **Terminal**: Ghostty
+- **Browser**: Zen Browser + Firefox
+- **Editor**: Zed
 
 ## Features
 
-- **Nix Flakes** - Reproducible, declarative system configuration
-- **CachyOS Kernel** - Performance-optimized kernel with sched-ext scheduler
-- **Wayland Desktop** - Niri compositor with Noctalia shell
-- **AMD GPU** - Full Vulkan, VA-API, and overclocking support via CoreCtrl
-- **Gaming Ready** - Steam, Proton-GE, Gamemode, Gamescope, Wine, Lutris
-- **Development** - Docker, direnv, modern CLI tools, multiple language runtimes
-- **Audio** - PipeWire with high-quality Bluetooth codecs (LDAC, AAC, aptX)
-- **Secure Boot** - Limine bootloader with Secure Boot support
+### Gaming
+- Steam with Proton-GE
+- Lutris, Heroic (Epic/GOG), Faugus Launchers
+- GameMode optimizations
+- MangoHud & vkBasalt support
+- AMD GPU with ROCm acceleration
 
-## Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/ragusa-it/nixos.git
-cd nixos
-
-# Test configuration (recommended first)
-sudo nixos-rebuild test --flake .#nixos
-
-# Apply configuration
-sudo nixos-rebuild switch --flake .#nixos
-```
-
-## Repository Structure
-
-```
-nixos/
-├── flake.nix                   # Flake inputs and outputs
-├── flake.lock                  # Pinned dependency versions
-├── configuration.nix           # Main config (imports all modules)
-├── hardware-configuration.nix  # Auto-generated hardware config
-├── AGENTS.md                   # Guidelines for AI agents
-└── modules/
-    ├── apps.nix                # User applications
-    ├── audio.nix               # PipeWire & Bluetooth audio
-    ├── boot-plymouth.nix       # Plymouth boot splash
-    ├── desktop.nix             # Wayland, portals, polkit
-    ├── dev.nix                 # Docker, dev tools, languages
-    ├── gaming.nix              # Steam, Gamemode, Wine
-    ├── gpu-amd.nix             # AMD GPU drivers & tools
-    ├── navidrome.nix           # Music streaming server
-    ├── power.nix               # Power management
-    ├── services.nix            # System services
-    ├── shell.nix               # Fish shell config
-    └── theming.nix             # Fonts, themes, cursors
-```
-
-## Flake Inputs
-
-| Input | Description |
-|-------|-------------|
-| `nixpkgs` | NixOS unstable channel |
-| `nix-cachyos-kernel` | CachyOS performance-optimized kernels |
-| `noctalia` | Noctalia desktop shell |
-| `zen-browser` | Zen Browser (Firefox fork) |
-| `opencode` | AI coding assistant |
-
-## Module Overview
+### Development
+- Rust, Python, Node.js toolchains
+- Docker & container tools
+- Git, GitHub CLI, Lazygit
+- Nix language server (nil, nixd)
+- Claude Code & Opencode AI assistants
 
 ### Desktop Environment
+- Custom Noctalia desktop shell
+- Wayland portals for screen sharing
+- Flatpak support with Flathub
+- Nordic theming
+- Plymouth boot splash
 
-| Component | Choice |
-|-----------|--------|
-| Compositor | Niri (Wayland) |
-| Shell | Noctalia |
-| Display Manager | Ly |
-| Terminal | Ghostty |
-| File Manager | Nautilus |
-| Editor | Zed |
-| Browser | Zen Browser, Firefox |
+### Security & Privacy
+- Full disk encryption (LUKS2)
+- Encrypted swap partition
+- Secure Boot with custom keys
+- Bitwarden password manager
+- Proton VPN
 
-### Hardware Configuration
+## Structure
 
-| Hardware | Configuration |
-|----------|---------------|
-| CPU | AMD Ryzen with `amd_pstate=active` |
-| GPU | AMD with RADV, VA-API, CoreCtrl |
-| Audio | PipeWire (ALSA, PulseAudio, JACK) |
-| Bluetooth | Enabled with LDAC, AAC, aptX codecs |
-
-### Gaming Stack
-
-| Component | Description |
-|-----------|-------------|
-| Steam | With Proton-GE, remote play, LAN transfers |
-| Gamemode | CPU/GPU optimization during gaming |
-| Gamescope | Micro-compositor for games |
-| Lutris | Game launcher |
-| Heroic | Epic/GOG launcher |
-| Wine | Latest staging with winetricks |
-| Scheduler | `scx_lavd` low-latency scheduler |
-
-### Development Tools
-
-| Category | Tools |
-|----------|-------|
-| Containers | Docker, docker-compose, lazydocker |
-| Languages | Node.js, Bun, Python, Rust |
-| Build | gcc, cmake, make, pkg-config |
-| Version Control | git, gh, lazygit, delta |
-| CLI | ripgrep, fd, fzf, eza, bat, jq, yq |
-
-## Shell Aliases
-
-The Fish shell is configured with useful aliases:
-
-```bash
-# NixOS
-rebuild          # sudo nixos-rebuild switch --flake .
-rebuild-test     # sudo nixos-rebuild test --flake .
-update           # nix flake update
-gc-nix           # sudo nix-collect-garbage -d
-
-# Git shortcuts
-gs, gd, gl, ga, gc, gp, gpu, gco, gb
-
-# Docker shortcuts
-dc, dps, dpa, dl, dex
-
-# Modern replacements
-ll, ls, cat, find, grep, df, du  # → eza, bat, fd, rg, duf, dust
+```
+.
+├── configuration.nix          # Main entry point
+├── flake.nix                  # Flake inputs and outputs
+├── hardware-configuration.nix # Auto-generated hardware config
+├── modules/
+│   ├── core/                  # Boot, users, networking
+│   ├── hardware/              # GPU, audio, power
+│   ├── desktop/               # WM, apps, theming
+│   ├── services/              # System services
+│   ├── dev/                   # Development tools
+│   └── gaming/                # Steam, Wine, Gamemode
+├── overlays/                  # Package patches
+├── scripts/                   # Installation helpers
+└── wallpaper/                 # Desktop backgrounds
 ```
 
-## Common Tasks
+## Installation
 
-### Rebuild System
+### Prerequisites
+- NixOS installation media
+- Internet connection
+- Target disk (e.g., `/dev/nvme0n1`)
+
+### Automated Install (Full Disk Encryption)
 
 ```bash
-# Test without switching (dry-run)
-sudo nixos-rebuild test --flake .#nixos
-
-# Apply changes
-sudo nixos-rebuild switch --flake .#nixos
-
-# Rebuild for next boot only
-sudo nixos-rebuild boot --flake .#nixos
+# Boot from NixOS ISO, then:
+curl -sL https://raw.githubusercontent.com/YOUR_USERNAME/nixos/main/scripts/install-fde.sh | sudo bash
 ```
 
-### Update Dependencies
+### Manual Install
 
 ```bash
-# Update all flake inputs
+# 1. Partition, format, and mount
+cryptsetup luksFormat /dev/nvme0n1p3
+cryptsetup open /dev/nvme0n1p3 cryptroot
+mkfs.xfs /dev/mapper/cryptroot
+mount /dev/mapper/cryptroot /mnt
+
+# 2. Clone and install
+git clone https://github.com/YOUR_USERNAME/nixos.git /mnt/etc/nixos
+cd /mnt/etc/nixos
+nixos-install --flake .#atlas
+```
+
+### Post-Install
+
+```bash
+# Set up Secure Boot (optional but recommended)
+sudo /etc/nixos/scripts/setup-secureboot.sh
+
+# Switch to new configuration
+sudo nixos-rebuild switch --flake /etc/nixos
+```
+
+## Daily Usage
+
+```bash
+# Rebuild system
+sudo nixos-rebuild switch --flake .
+
+# Update flake inputs
 nix flake update
 
-# Update specific input
-nix flake update nixpkgs
-```
-
-### Garbage Collection
-
-```bash
-# Manual cleanup (removes generations older than 14 days)
-sudo nix-collect-garbage --delete-older-than 14d
-
-# List generations
-nix-env --list-generations
-
-# Remove all old generations
+# Clean old generations
 sudo nix-collect-garbage -d
+
+# Format all nix files
+nixfmt **/*.nix
 ```
 
-### Package Management
+## Hardware Requirements
 
-```bash
-# Search for packages
-nix search nixpkgs <package>
+- **CPU**: AMD Ryzen (with x86_64-v3 support for CachyOS kernel)
+- **GPU**: AMD Radeon (ROCm supported)
+- **RAM**: 16GB+ recommended
+- **Storage**: NVMe SSD recommended
 
-# Install user GUI apps (via nix profile)
-nix profile install nixpkgs#<package>
+## External Dependencies
 
-# Update user apps
-nix profile upgrade '.*'
+This configuration uses the following flake inputs:
 
-# List installed user apps
-nix profile list
-```
+- [nixpkgs](https://github.com/NixOS/nixpkgs) - Main package repository
+- [noctalia-shell](https://github.com/noctalia-dev/noctalia-shell) - Desktop environment
+- [nix-cachyos-kernel](https://github.com/xddxdd/nix-cachyos-kernel) - Optimized kernel
+- [zen-browser](https://github.com/youwen5/zen-browser-flake) - Zen Browser
+- [opencode](https://github.com/anomalyco/opencode) - AI coding assistant
 
-### Validate Configuration
+## Acknowledgments
 
-```bash
-# Quick syntax check
-nix flake check
-
-# Show flake outputs
-nix flake show
-```
-
-## Services
-
-| Service | Port | Description |
-|---------|------|-------------|
-| Navidrome | 4533 | Music streaming (localhost only) |
-| Tailscale | - | Mesh VPN |
-| SSH | 22 | Remote access |
-
-## System Optimizations
-
-- **ZRAM Swap** - Compressed RAM swap with zstd
-- **SSD TRIM** - Weekly fstrim for SSD longevity
-- **EarlyOOM** - Prevents system freeze on memory exhaustion
-- **Profile Sync Daemon** - Browser profiles in RAM
-- **Auto GC** - Weekly garbage collection of old generations
-
-## Kernel Tweaks
-
-```nix
-# Gaming optimizations
-"fs.inotify.max_user_watches" = 524288  # Large games support
-"vm.swappiness" = 10                     # Prefer RAM over swap
-"vm.vfs_cache_pressure" = 50             # Keep directory caches
-```
-
-## Theming
-
-| Element | Choice |
-|---------|--------|
-| GTK Theme | adw-gtk3-dark |
-| Icons | Papirus-Dark |
-| Cursor | Adwaita (24px) |
-| Fonts | Inter (UI), JetBrains Mono Nerd Font (mono) |
-| Color Scheme | Dark |
-
-Configure with `nwg-look` or `dconf-editor`.
-
-## Adding New Modules
-
-1. Create `modules/newmodule.nix`:
-
-```nix
-# modules/newmodule.nix
-# Brief description
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
-{
-  # Module content
-}
-```
-
-2. Add import to `configuration.nix`:
-
-```nix
-imports = [
-  # ...
-  ./modules/newmodule.nix
-];
-```
-
-3. Test: `sudo nixos-rebuild test --flake .#nixos`
-
-## Troubleshooting
-
-### Build Fails
-
-```bash
-# Check for syntax errors
-nix flake check
-
-# Build with verbose output
-sudo nixos-rebuild switch --flake .#nixos --show-trace
-```
-
-### Rollback
-
-```bash
-# Boot into previous generation from bootloader menu
-# Or switch to specific generation:
-sudo nixos-rebuild switch --rollback
-```
-
-### GPU Issues
-
-```bash
-# Check Vulkan
-vulkaninfo | grep deviceName
-
-# Check VA-API
-vainfo
-
-# Monitor GPU
-nvtop
-radeontop
-```
-
-### Audio Issues
-
-```bash
-# Check PipeWire status
-systemctl --user status pipewire pipewire-pulse wireplumber
-
-# Restart audio stack
-systemctl --user restart pipewire pipewire-pulse wireplumber
-```
-
-## Notes
-
-- **State Version**: `26.05` - Do not change unless migrating
-- **Username**: `pinj` - Configured throughout the system
-- **Locale**: English (US) with German regional settings
-- **Keyboard**: German (nodeadkeys)
-- **Timezone**: Europe/Berlin
+- [NixOS](https://nixos.org/) - The purely functional Linux distribution
+- [CachyOS](https://cachyos.org/) - Optimized kernel and packages
+- [Limine](https://limine-bootloader.org/) - Modern bootloader
+- [Niri](https://github.com/YaLTeR/niri) - Scrollable-tiling Wayland compositor
 
 ## License
 
-Personal configuration. Feel free to use as inspiration for your own setup.
+This configuration is released into the public domain. Feel free to use, modify, and distribute as needed.
+
+---
+
+<p align="center">Made with ❄️ Nix</p>

@@ -1,199 +1,127 @@
-# AGENTS.md - NixOS Configuration Guidelines
+# AGENTS.md - NixOS Configuration Repository
 
-Guidelines for AI agents working with this NixOS flake-based configuration.
+This file provides guidance for AI coding assistants working on this NixOS configuration.
 
-## Project Overview
+## Repository Overview
 
-Modular NixOS configuration for a desktop workstation using Nix flakes.
+This is a NixOS system configuration for a desktop named "atlas". It uses flakes, modular organization, and includes customizations for gaming, development, and daily desktop use.
 
-**Tech Stack:** NixOS, Nix Flakes, Fish shell, Wayland (Niri), AMD GPU
-
-## Repository Structure
-
-```
-nixos/
-├── flake.nix                 # Flake inputs and outputs
-├── configuration.nix         # Main config (imports all modules)
-├── hardware-configuration.nix # Auto-generated (don't edit)
-├── overlays/                 # Custom nixpkgs overlays
-│   └── limine-install-patched.py  # Patched Limine install script
-└── modules/
-    ├── apps.nix              # User applications
-    ├── desktop.nix           # Wayland, portals, polkit
-    ├── dev.nix               # Docker, dev tools, languages
-    ├── gaming.nix            # Steam, Gamemode, Wine
-    ├── gpu-amd.nix           # AMD GPU drivers
-    ├── limine-custom-labels.nix  # Custom boot entry labels
-    ├── shell.nix             # Fish shell config
-    ├── theming.nix           # Fonts, themes, cursors
-    └── ...                   # Other modules
-```
-
-## Build Commands
+## Build/Validation Commands
 
 ```bash
-# Test configuration without switching (recommended first)
-sudo nixos-rebuild test --flake .#nixos
-
-# Switch to new configuration
-sudo nixos-rebuild switch --flake .#nixos
-
-# Quick syntax validation
+# Validate Nix syntax and build configuration
 nix flake check
 
-# Update all flake inputs
-nix flake update
+# Build the configuration (dry-run, doesn't activate)
+nixos-rebuild dry-build --flake .
 
-# Garbage collection
-sudo nix-collect-garbage --delete-older-than 14d
+# Format all .nix files with nixfmt
+nixfmt **/*.nix
+
+# Check for common issues
+nixos-rebuild dry-activate --flake .
 ```
 
 ## Code Style Guidelines
 
-### File Structure
+### File Organization
+- Entry point: `configuration.nix`
+- Flake definition: `flake.nix`
+- Modular structure under `modules/` organized by category:
+  - `core/` - Boot, system, networking, users, localization
+  - `hardware/` - GPU, audio, storage, power management
+  - `desktop/` - Window manager, apps, theming, portals
+  - `services/` - System services (avahi, printing, navidrome)
+  - `dev/` - Development tools, docker, shells
+  - `gaming/` - Steam, wine, gamemode
 
-Each module follows this pattern:
-
+### Module Pattern
+Each module follows this structure:
 ```nix
-# modules/example.nix
-# Brief description of what this module does
+# modules/<category>/<name>.nix
+# Brief description of what this module configures
 {
   config,
   pkgs,
   lib,
+  inputs,      # Only if using flake inputs
+  username,    # Custom arg passed from flake
   ...
 }:
 
 {
-  # Module content here
+  # Configuration options here
 }
 ```
 
-### Formatting
-
-- **Formatter**: `nixfmt`
-- **Indentation**: 2 spaces (no tabs)
-- **Line length**: ~100 chars, break long lists
-
-### Naming Conventions
-
-- **Files**: `kebab-case.nix` (e.g., `gpu-amd.nix`)
-- **Options**: NixOS convention, camelCase (e.g., `extraGroups`)
-
-### Comments & Headers
-
-- Major sections: `# ═══ SECTION NAME ═══` (full line of `═`)
-- Subsections: `# ─── Subsection ───` (full line of `─`)
-- Inline comments for non-obvious settings
-
-### Package Lists & Attribute Sets
-
+### Imports Pattern
+`default.nix` files should only contain imports:
 ```nix
-environment.systemPackages = with pkgs; [
-  # Category header
-  package1
-  package2
-];
-
-# Short sets inline: { enable = true; }
-# Multi-line with indentation:
-services.example = {
-  enable = true;
-  settings.Option = "value";
-};
-```
-
-## Important Notes
-
-1. **hardware-configuration.nix**: Auto-generated, never edit manually
-2. **Username**: `pinj` - used throughout the config
-3. **User groups**: Distributed across modules via `users.users.pinj.extraGroups`
-4. **GUI apps**: Managed via `nix profile`, not system packages
-5. **Unfree packages**: Enabled in `configuration.nix`
-6. **State version**: `26.05` - don't change unless migrating
-
-## Flake Inputs
-
-| Input | Purpose |
-|-------|---------|
-| `nixpkgs` | NixOS unstable channel |
-| `nix-cachyos-kernel` | CachyOS optimized kernel |
-| `noctalia` | Desktop shell |
-
-## Common Patterns
-
-### Adding a New Module
-
-1. Create `modules/newmodule.nix` with standard header
-2. Add import to `configuration.nix`
-3. Test with `sudo nixos-rebuild test --flake .#nixos`
-
-### Adding System Packages
-
-Add to the relevant module's `environment.systemPackages`:
-```nix
-environment.systemPackages = with pkgs; [
-  newpackage
-];
-```
-
-### Adding User to Group
-
-```nix
-users.users.pinj.extraGroups = [ "groupname" ];
-```
-
-### Using Flake Inputs
-
-```nix
-# Add inputs to module arguments
-{ config, pkgs, inputs, lib, ... }:
-
+# modules/<category>/default.nix
 {
-  environment.systemPackages = [
-    inputs.flakename.packages.${pkgs.system}.default
+  imports = [
+    ./boot.nix
+    ./system.nix
   ];
 }
 ```
 
-### Adding User GUI Apps
+### Formatting Rules
+- Use 2-space indentation
+- No tabs
+- Keep lines under 100 characters when possible
+- Add blank lines between logical sections
+- Use descriptive comments with `# Description` format
 
+### Naming Conventions
+- Module files: descriptive lowercase with hyphens (e.g., `gpu-amd.nix`)
+- Use `username` variable from flake for user-specific paths
+- Use `lib.mkIf` for conditional configuration
+- Use `lib.mkDefault` for values that can be overridden
+
+### Input Handling
+- Pass `inputs` from flake when accessing external packages
+- Access input packages via: `inputs.<name>.packages.${pkgs.stdenv.hostPlatform.system}.default`
+- Use `pkgs.stdenv.hostPlatform.system` for system-specific packages
+
+### Special Files
+- `hardware-configuration.nix` - Generated by nixos-generate-config, DO NOT EDIT
+- Scripts in `scripts/` are bash installers (not part of NixOS config)
+- Overlays contain patched Python scripts
+
+### Security Notes
+- Never commit secrets, API keys, or tokens
+- Sensitive files are in `.gitignore`
+- Use proper LUKS encryption for swap and root partitions
+- Secure Boot is enabled with custom Limine patches
+
+## Common Tasks
+
+### Adding a New Module
+1. Create file in appropriate `modules/<category>/` subdirectory
+2. Add to the category's `default.nix` imports
+3. Follow existing module structure and formatting
+4. Add brief header comment describing purpose
+
+### Adding a Package
+- System packages: add to `environment.systemPackages` in appropriate module
+- User packages: prefer adding to system packages for shared use
+- Flake packages: access via inputs with proper system attribute
+
+### Testing Changes
 ```bash
-nix profile install nixpkgs#packagename
+# Before committing, always verify syntax
+nix flake check
+
+# Build to catch evaluation errors
+nixos-rebuild dry-build --flake .
 ```
 
-## Error Handling
+## Dependencies
 
-- NixOS fails builds on errors - this is the primary validation
-- Always test with `nixos-rebuild test` before `switch`
-- Use `nix flake check` for quick syntax validation
-
-## Custom Limine Boot Labels (MAINTENANCE REQUIRED)
-
-**Files:**
-- `modules/limine-custom-labels.nix` - Module that applies the patch
-- `overlays/limine-install-patched.py` - Patched install script
-
-**What it does:**
-- Changes boot entries from "Generation XYZ" to "Linux 6.X.Y-cachyos - Generation XYZ"
-- Removes "default profile" from group name (shows just "NixOS")
-- Shows kernel version in all entries including specialisations
-
-**How it works:**
-The module imports the standard Limine module but overrides `system.build.installBootLoader` 
-with a patched Python script that extracts kernel version from the kernel path.
-
-**Maintenance burden:**
-- **HIGH** - This will break when nixpkgs updates the limine module
-- Check after every `nix flake update` by running `nixos-rebuild test`
-- If it breaks, compare `overlays/limine-install-patched.py` with the upstream
-  `nixos/modules/system/boot/loader/limine/limine-install.py` in nixpkgs
-- Typical breakage: line number changes, function signature changes, new bootspec fields
-
-**To fix breakage:**
-1. Check current upstream script: https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/system/boot/loader/limine/limine-install.py
-2. Identify the changes needed
-3. Re-apply the two key modifications:
-   - Line ~550: Change `group_name = 'default profile'...` to `group_name = ''`
-   - Add `get_kernel_version()` function and use it in `generate_config_entry()`
-4. Test with `sudo nixos-rebuild test --flake .#nixos`
+External flake inputs:
+- `nixpkgs` - Main NixOS packages (nixos-unstable)
+- `noctalia` - Desktop shell
+- `nix-cachyos-kernel` - CachyOS kernel with optimizations
+- `zen-browser` - Zen browser
+- `opencode` - AI coding assistant
