@@ -70,7 +70,7 @@
   boot.loader.systemd-boot.enable = false; # Disabled - using Limine
   boot.loader.limine = {
     enable = true;
-    style.wallpapers = "${./wallpaper/nix.png}";
+    style.wallpapers = [ ./wallpaper/nix.png ];
   };
 
   boot.loader.limine.secureBoot.enable = true;
