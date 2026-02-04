@@ -16,7 +16,7 @@
     evince # PDF/document viewer
     celluloid # MPV frontend (GTK video player)
     mpv # Powerful CLI video player
-    vlc
+    vlc # Video player
 
     # ═══════════════════════════════════════════════════════════════
     # MUSIC
