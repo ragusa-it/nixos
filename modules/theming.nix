@@ -91,27 +91,4 @@
   # ═══════════════════════════════════════════════════════════════
   # These can be overridden by the user with nwg-look or dconf-editor
   # Default theme settings are applied per-user
-
-  programs.dconf = {
-    enable = true;
-    profiles.user.databases = [
-      {
-        settings = {
-          "org/gnome/desktop/interface" = {
-            color-scheme = "prefer-dark";
-            gtk-theme = "adw-gtk3";
-            icon-theme = "Papirus-Dark";
-            cursor-theme = "Adwaita";
-            cursor-size = lib.gvariant.mkInt32 24;
-            font-name = "Inter 11";
-            document-font-name = "Inter 11";
-            monospace-font-name = "JetBrainsMono Nerd Font 10";
-          };
-          "org/gnome/desktop/wm/preferences" = {
-            titlebar-font = "Inter Bold 11";
-          };
-        };
-      }
-    ];
-  };
 }
