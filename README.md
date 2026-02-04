@@ -31,8 +31,7 @@ nixos/
     ├── power.nix             # Power profiles daemon, CPU governor
     ├── services.nix          # System services (fstrim, zram, avahi, psd, earlyoom)
     ├── shell.nix             # Fish shell config with plugins and aliases
-    ├── theming.nix           # Fonts, GTK/Qt themes, cursors, dconf
-    └── virtualization.nix    # QEMU, KVM, virt-manager (commented out)
+    └── theming.nix           # Fonts, GTK/Qt themes, cursors, dconf
 ```
 
 ## 🚀 Flake Inputs
@@ -221,7 +220,7 @@ All packages in this configuration are installed as system packages (`environmen
 
 | Category | Module | Examples |
 |----------|--------|----------|
-| **Desktop Core** | configuration.nix, desktop.nix | Nautilus, Ghostty, Zen Browser, Noctalia, Vicinae, wl-clipboard |
+| **Desktop Core** | configuration.nix, desktop.nix | Nautilus, Ghostty, Zen Browser, Noctalia, wl-clipboard |
 | **Applications** | apps.nix | Vesktop, Thunderbird, Signal, Telegram, Obsidian, OnlyOffice |
 | **Media** | apps.nix | Loupe, Evince, MPV, Celluloid, VLC, Feishin, Picard, OBS |
 | **Development** | dev.nix | Docker, Node.js, Rust, Python, Bun, git, lazygit, CLI tools |
@@ -255,7 +254,7 @@ To add a new package:
 ### Configuration Features
 - **Unfree Packages**: Enabled globally
 - **Flakes**: Enabled with nix-command
-- **Binary Caches**: Vicinae, nix-community, lantian (CachyOS)
+- **Binary Caches**: nix-community, lantian (CachyOS)
 - **Auto-Optimization**: Store optimization enabled
 - **Garbage Collection**: Weekly, keeping 14 days
 - **State Version**: 26.05
