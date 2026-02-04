@@ -66,6 +66,26 @@
         "type": "github"
       }
     },
+    "kilo": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770234115,
+        "narHash": "sha256-/X6zSjlr7bxGebQ7h7BiBxtFZ84K4Gbmxnv3WfEYQoE=",
+        "owner": "Kilo-Org",
+        "repo": "kilo",
+        "rev": "d474eee4f16b385597680c099f5654261a7c566e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Kilo-Org",
+        "repo": "kilo",
+        "type": "github"
+      }
+    },
     "nix-cachyos-kernel": {
       "inputs": {
         "cachyos-kernel": "cachyos-kernel",
@@ -178,6 +198,7 @@
     },
     "root": {
       "inputs": {
+        "kilo": "kilo",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
