@@ -255,8 +255,6 @@
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default
 
-    inputs.kilo.packages.${pkgs.stdenv.hostPlatform.system}.default
-
     # Terminal
     ghostty
 

@@ -27,11 +27,6 @@
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    kilo = {
-      url = "github:Kilo-Org/kilo";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   # Binary caches for faster builds
