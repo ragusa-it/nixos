@@ -1,5 +1,5 @@
 {
-  description = "atlas - NixOS Config for Desktop";
+  description = "NixOS Configurations - atlas, laptop, and server";
 
   # ═══════════════════════════════════════════════════════════════
   # INPUTS
@@ -48,18 +48,32 @@
     inputs@{ self, nixpkgs, ... }:
     let
       system = "x86_64-linux";
-      username = "pinj"; # Single source of truth for username
+      username = "pinj";
+
+      # Helper function to create NixOS configurations
+      mkHost =
+        hostname:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs username;
+          };
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+            { nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ]; }
+          ];
+        };
     in
     {
-      nixosConfigurations.atlas = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = {
-          inherit inputs username;
-        };
-        modules = [
-          ./configuration.nix
-          { nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ]; }
-        ];
+      nixosConfigurations = {
+        # Desktop - full gaming and media setup
+        atlas = mkHost "atlas";
+
+        # Server - headless, core + dev only
+        server = mkHost "server";
+
+        # Laptop - desktop environment, no gaming
+        laptop = mkHost "laptop";
       };
     };
 }
