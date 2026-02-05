@@ -85,7 +85,6 @@
     protonmail-bridge-gui
 
     # Game Launchers
-    faugus-launcher
     lutris
     heroic
 
