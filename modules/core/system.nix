@@ -20,10 +20,14 @@
     ];
   };
 
+  #Automatic updating
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.dates = "weekly";
+
   nix.gc = {
     automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+    dates = "daily";
+    options = "--delete-older-than 10d";
   };
 
   nixpkgs.config.allowUnfree = true;
