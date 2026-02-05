@@ -8,7 +8,13 @@
 
 ## Overview
 
-This repository contains the complete NixOS system configuration for **atlas**, a desktop system optimized for gaming, development, and daily use. It uses Nix flakes for reproducible builds and modular organization for maintainability.
+This repository contains the complete NixOS system configuration for multiple hosts:
+
+- **atlas** - Desktop gaming and media setup
+- **server** - Headless server (core + dev tools only)
+- **laptop** - Laptop with desktop environment (no gaming)
+
+It uses Nix flakes for reproducible builds and modular organization for maintainability.
 
 ### System Highlights
 
@@ -55,9 +61,17 @@ This repository contains the complete NixOS system configuration for **atlas**, 
 
 ```
 .
-├── configuration.nix          # Main entry point
 ├── flake.nix                  # Flake inputs and outputs
-├── hardware-configuration.nix # Auto-generated hardware config
+├── hosts/
+│   ├── atlas/                 # Desktop configuration
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
+│   ├── laptop/                # Laptop configuration
+│   │   ├── configuration.nix
+│   │   └── hardware-configuration.nix
+│   └── server/                # Server configuration
+│       ├── configuration.nix
+│       └── hardware-configuration.nix
 ├── modules/
 │   ├── core/                  # Boot, users, networking
 │   ├── hardware/              # GPU, audio, power
@@ -81,7 +95,7 @@ This repository contains the complete NixOS system configuration for **atlas**, 
 
 ```bash
 # Boot from NixOS ISO, then:
-curl -sL https://raw.githubusercontent.com/YOUR_USERNAME/nixos/main/scripts/install-fde.sh | sudo bash
+curl -sL https://raw.githubusercontent.com/ragusa-it/nixos/main/scripts/install-fde.sh | sudo bash
 ```
 
 ### Manual Install
@@ -94,8 +108,10 @@ mkfs.xfs /dev/mapper/cryptroot
 mount /dev/mapper/cryptroot /mnt
 
 # 2. Clone and install
-git clone https://github.com/YOUR_USERNAME/nixos.git /mnt/etc/nixos
+git clone https://github.com/ragusa-it/nixos.git /mnt/etc/nixos
 cd /mnt/etc/nixos
+
+# Install for specific host (atlas, laptop, or server)
 nixos-install --flake .#atlas
 ```
 
@@ -112,8 +128,8 @@ sudo nixos-rebuild switch --flake /etc/nixos
 ## Daily Usage
 
 ```bash
-# Rebuild system
-sudo nixos-rebuild switch --flake .
+# Rebuild system (use appropriate host)
+sudo nixos-rebuild switch --flake .#atlas
 
 # Update flake inputs
 nix flake update
