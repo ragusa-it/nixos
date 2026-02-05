@@ -19,8 +19,6 @@
     ../../modules/services/maintenance.nix
     ../../modules/services/printing.nix
     ../../modules/services/avahi.nix
-    # Uncomment if you want music server on laptop:
-    # ../../modules/services/navidrome.nix
   ];
 
   # Laptop-specific configuration

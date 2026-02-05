@@ -18,6 +18,5 @@
     ../../modules/services
     ../../modules/dev
     ../../modules/gaming
-    ../../modules/limine-custom-labels.nix
   ];
 }
