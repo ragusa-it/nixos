@@ -11,25 +11,12 @@
 {
   environment.systemPackages = with pkgs; [
     # Core utilities
-    gnupg
-    fastfetch
-    micro
-    wget
-    curl
-    sbctl
-    nil
-    nixd
     xwayland-satellite
     grim
     slurp
-    btop
     mission-center
     file-roller
     gnome-disk-utility
-    unzip
-    zip
-    p7zip
-    unrar
 
     # File management
     nautilus

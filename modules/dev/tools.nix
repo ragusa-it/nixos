@@ -17,6 +17,7 @@
   environment.systemPackages = with pkgs; [
     bun
     pnpm
+    fastfetch
     nodejs
     python3
     rustup
@@ -28,6 +29,12 @@
     gh
     delta
     lazygit
+    gnupg
+    micro
+    wget
+    curl
+    sbctl
+    nixd
     nil
     nixfmt
     jq
@@ -36,6 +43,11 @@
     fd
     fzf
     eza
+    unzip
+    zip
+    p7zip
+    unrar
+    btop
     bat
     broot
     tealdeer
