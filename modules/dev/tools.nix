@@ -15,7 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nodePackages.openai/codex
+    nodePackages.codex
     bun
     pnpm
     fastfetch
