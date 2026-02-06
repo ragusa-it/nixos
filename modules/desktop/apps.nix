@@ -70,6 +70,7 @@
     localsend
     protonvpn-gui
     protonmail-bridge-gui
+    gitkraken
 
     # Game Launchers
     lutris
