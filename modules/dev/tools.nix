@@ -27,6 +27,8 @@
     pkg-config
     git
     gh
+    gcloud
+    firebase-tools
     delta
     lazygit
     gnupg
