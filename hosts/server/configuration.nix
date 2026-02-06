@@ -12,7 +12,11 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/core
+    ../../modules/core/boot_server.nix
+    ../../modules/core/localization.nix
+    ../../modules/core/networking.nix
+    ../../modules/core/system.nix
+    ../../modules/core/users.nix
     ../../modules/hardware/audio.nix
     ../../modules/hardware/storage.nix
     ../../modules/hardware/power.nix
