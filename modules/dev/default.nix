@@ -5,4 +5,7 @@
     ./shell.nix
     ./tools.nix
   ];
+  nixpkgs.overlays = [
+    (import ../../overlays/firebase-tools.nix)
+  ];
 }
