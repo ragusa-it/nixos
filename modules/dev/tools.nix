@@ -27,7 +27,7 @@
     pkg-config
     git
     gh
-    gcloud
+    google-cloud-sdk
     firebase-tools
     delta
     lazygit
