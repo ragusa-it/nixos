@@ -55,6 +55,7 @@
     # Office
     onlyoffice-desktopeditors
     obsidian
+    nextcloud-client
 
     # Recording
     gpu-screen-recorder
