@@ -85,7 +85,7 @@ echo "LUKS encryption configured."
 echo ""
 echo "═══ Phase 4: Generating swap keyfile ═══"
 
-dd bs=4096 count=1 if=/dev/random of=/tmp/swap.key iflag=fullblock
+dd bs=4096 count=1 if=/dev/urandom of=/tmp/swap.key iflag=fullblock
 chmod 600 /tmp/swap.key
 
 echo "Adding keyfile to swap LUKS volume..."
